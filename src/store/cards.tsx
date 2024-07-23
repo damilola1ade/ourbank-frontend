@@ -30,7 +30,7 @@ const axiosBaseQuery =
 
 export const cardAPI = createApi({
   reducerPath: "cards",
-  baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:8000/card" }),
+  baseQuery: axiosBaseQuery({ baseUrl: "https://ourbank-backend.onrender.com/card" }),
   tagTypes: ["Card"],
   endpoints: (builder) => ({
     createCard: builder.mutation({

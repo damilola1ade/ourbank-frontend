@@ -7,11 +7,11 @@ import { store } from "./store/store";
 import { ModalProvider } from "./components/ui/animated-modal";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <ModalProvider>
-    <Provider store={store}>
+  <Provider store={store}>
+    <ModalProvider>
       <Router>
         <App />
       </Router>
-    </Provider>
-  </ModalProvider>
+    </ModalProvider>
+  </Provider>
 );

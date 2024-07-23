@@ -1,3 +1,4 @@
+import { useCreateCardMutation } from "@/store/cards";
 import { cn } from "../../lib/utils";
 import { AnimatePresence, motion } from "framer-motion";
 import React, {
@@ -20,9 +21,9 @@ export const ModalProvider = ({ children }: { children: ReactNode }) => {
   const [open, setOpen] = useState(false);
 
   return (
-    <ModalContext.Provider value={{ open, setOpen }}>
-      {children}
-    </ModalContext.Provider>
+      <ModalContext.Provider value={{ open, setOpen }}>
+        {children}
+      </ModalContext.Provider>
   );
 };
 
@@ -38,13 +39,7 @@ export function Modal({ children }: { children: ReactNode }) {
   return <ModalProvider>{children}</ModalProvider>;
 }
 
-export const ModalTrigger = ({
-  children,
-}: {
-  children: ReactNode;
-  className?: string;
-  setOpen?: (open: boolean) => void;
-}) => {
+export const ModalTrigger = ({ children }: { children: ReactNode }) => {
   const { setOpen } = useModal();
   return <div onClick={() => setOpen(true)}>{children}</div>;
 };
@@ -74,49 +69,23 @@ export const ModalBody = ({
     <AnimatePresence>
       {open && (
         <motion.div
-          initial={{
-            opacity: 0,
-          }}
-          animate={{
-            opacity: 1,
-            backdropFilter: "blur(10px)",
-          }}
-          exit={{
-            opacity: 0,
-            backdropFilter: "blur(0px)",
-          }}
-          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full  flex items-center justify-center z-50"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1, backdropFilter: "blur(10px)" }}
+          exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
+          className="fixed [perspective:800px] [transform-style:preserve-3d] inset-0 h-full w-full flex items-center justify-center z-50"
         >
           <Overlay />
 
           <motion.div
             ref={modalRef}
             className={cn(
-              "min-h-[50%] max-h-[90%] md:max-w-[35%] lg:max-w-[30%] dark:bg-neutral-950 border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
+              "min-h-[50%] max-h-[90%] md:max-w-[35%] lg:max-w-[30%] bg-[black] border border-transparent dark:border-neutral-800 md:rounded-2xl relative z-50 flex flex-col flex-1 overflow-hidden",
               className
             )}
-            initial={{
-              opacity: 0,
-              scale: 0.5,
-              rotateX: 40,
-              y: 40,
-            }}
-            animate={{
-              opacity: 1,
-              scale: 1,
-              rotateX: 0,
-              y: 0,
-            }}
-            exit={{
-              opacity: 0,
-              scale: 0.8,
-              rotateX: 10,
-            }}
-            transition={{
-              type: "spring",
-              stiffness: 260,
-              damping: 15,
-            }}
+            initial={{ opacity: 0, scale: 0.5, rotateX: 40, y: 40 }}
+            animate={{ opacity: 1, scale: 1, rotateX: 0, y: 0 }}
+            exit={{ opacity: 0, scale: 0.8, rotateX: 10 }}
+            transition={{ type: "spring", stiffness: 260, damping: 15 }}
           >
             <CloseIcon />
             {children}
@@ -161,17 +130,9 @@ export const ModalFooter = ({
 const Overlay = ({ className }: { className?: string }) => {
   return (
     <motion.div
-      initial={{
-        opacity: 0,
-      }}
-      animate={{
-        opacity: 1,
-        backdropFilter: "blur(10px)",
-      }}
-      exit={{
-        opacity: 0,
-        backdropFilter: "blur(0px)",
-      }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1, backdropFilter: "blur(10px)" }}
+      exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
       className={`fixed inset-0 h-full w-full bg-black bg-opacity-50 z-50 ${className}`}
     ></motion.div>
   );
@@ -179,6 +140,17 @@ const Overlay = ({ className }: { className?: string }) => {
 
 const CloseIcon = () => {
   const { setOpen } = useModal();
+
+  const [createCard, { isLoading }] = useCreateCardMutation();
+
+  useEffect(() => {
+    if (isLoading) {
+      setOpen(false);
+    }
+  }, [isLoading]);
+
+  console.log(open)
+  
   return (
     <button
       onClick={() => setOpen(false)}

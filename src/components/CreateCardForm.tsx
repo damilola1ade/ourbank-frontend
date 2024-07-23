@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { Label } from "./ui/label";
 import { Input } from "./ui/input";
@@ -12,16 +12,19 @@ import {
   ModalTrigger,
   ModalBody,
   ModalContent,
-  useModal,
 } from "./ui/animated-modal";
 
 import { GenerateCardButton } from "./GenerateCardButton";
 
 export function CreateCardForm() {
-  const { handleSubmit, control } = useForm<FormValues>();
-  const [createCard, { isLoading, isSuccess }] = useCreateCardMutation();
+  const { handleSubmit, control } = useForm<FormValues>({
+    defaultValues: {
+      name: "",
+      provider: "MasterCard",
+    },
+  });
 
-  const { open, setOpen } = useModal();
+  const [createCard, { isLoading }] = useCreateCardMutation();
 
   const onSubmit = async (data: FormValues) => {
     try {
@@ -39,17 +42,9 @@ export function CreateCardForm() {
     }
   };
 
-  console.log(open);
-
-  useEffect(() => {
-    if (isSuccess === true) {
-      setOpen(false);
-    }
-  }, [isSuccess]);
-
   return (
     <Modal>
-      <ModalTrigger className="group/modal-btn">
+      <ModalTrigger>
         <GenerateCardButton />
       </ModalTrigger>
       <ModalBody>

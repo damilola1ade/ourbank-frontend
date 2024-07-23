@@ -7,6 +7,8 @@ import { SignUpButton } from "./SignUpButton";
 import { SignUpForm } from "./SignUpForm";
 import { SignInForm } from "./SignInForm";
 import { LogoutButton } from "./LogoutButton";
+import { Loader } from "./Loader";
+import { Error } from "./Error";
 
 export {
   GenerateCardButton,
@@ -18,4 +20,6 @@ export {
   SignUpForm,
   SignInForm,
   LogoutButton,
+  Loader,
+  Error
 };

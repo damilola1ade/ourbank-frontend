@@ -1,8 +1,8 @@
 export interface FormValues {
   name?: string;
   cardName?: string;
-  email: string;
-  password: string;
+  email?: string;
+  password?: string;
   provider?: string;
 }
 

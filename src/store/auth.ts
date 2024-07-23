@@ -56,9 +56,11 @@ const axiosBaseQuery =
     }
   };
 
+  
+
 export const authAPI = createApi({
   reducerPath: "auth",
-  baseQuery: axiosBaseQuery({ baseUrl: "http://localhost:8000/auth" }),
+  baseQuery: axiosBaseQuery({ baseUrl: "https://ourbank-backend.onrender.com/auth" }),
   endpoints: (builder) => ({
     signUp: builder.mutation<AuthResponse, SignUpRequest>({
       query: (body) => ({

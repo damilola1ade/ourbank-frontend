@@ -1,5 +1,10 @@
 import { toast } from "sonner";
-import { CreateCardForm, CreditCardComponent } from "../../../components";
+import {
+  CreateCardForm,
+  CreditCardComponent,
+  Error,
+  Loader,
+} from "../../../components";
 import { useDeleteCardMutation, useGetAllCardsQuery } from "@/store/cards";
 import { Item } from "@/types";
 
@@ -14,8 +19,8 @@ const Hero = () => {
     } catch (error) {}
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error loading cards</div>;
+  if (isLoading) return <Loader />;
+  if (error) return <Error />;
 
   return (
     <div className="flex flex-col items-center justify-center gap-8 p-4">
