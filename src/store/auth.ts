@@ -60,11 +60,11 @@ const axiosBaseQuery =
 
 export const authAPI = createApi({
   reducerPath: "auth",
-  baseQuery: axiosBaseQuery({ baseUrl: "https://ourbank-backend.onrender.com/auth" }),
+  baseQuery: axiosBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   endpoints: (builder) => ({
     signUp: builder.mutation<AuthResponse, SignUpRequest>({
       query: (body) => ({
-        url: "signup",
+        url: "auth/signup",
         method: "POST",
         data: body,
       }),
@@ -72,7 +72,7 @@ export const authAPI = createApi({
 
     login: builder.mutation<AuthResponse, SignInRequest>({
       query: (body) => ({
-        url: "login",
+        url: "auth/login",
         method: "POST",
         data: body,
       }),
@@ -80,7 +80,7 @@ export const authAPI = createApi({
 
     logout: builder.mutation<void, LogoutRequest>({
       query: (body) => ({
-        url: "logout",
+        url: "auth/logout",
         method: "POST",
         data: body,
       }),

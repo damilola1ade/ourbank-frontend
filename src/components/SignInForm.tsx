@@ -43,7 +43,7 @@ export function SignInForm() {
 
   return (
     <Modal>
-      <ModalTrigger className="group/modal-btn">
+      <ModalTrigger>
         <LoginButton />
       </ModalTrigger>
       <ModalBody>

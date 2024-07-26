@@ -38,7 +38,7 @@ export function SignUpForm() {
 
       if (response && response.accessToken) {
         sessionStorage.setItem("accessToken", response.accessToken);
-        toast.success(response.message);
+        toast.success("Registration successful!");
         navigate("/card-generator");
       }
     } catch (error) {
@@ -48,7 +48,7 @@ export function SignUpForm() {
   };
   return (
     <Modal>
-      <ModalTrigger className="group/modal-btn">
+      <ModalTrigger>
         <SignUpButton />
       </ModalTrigger>
       <ModalBody>

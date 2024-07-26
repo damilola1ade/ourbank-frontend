@@ -30,12 +30,12 @@ const axiosBaseQuery =
 
 export const cardAPI = createApi({
   reducerPath: "cards",
-  baseQuery: axiosBaseQuery({ baseUrl: "https://ourbank-backend.onrender.com/card" }),
+  baseQuery: axiosBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
   tagTypes: ["Card"],
   endpoints: (builder) => ({
     createCard: builder.mutation({
       query: (body) => ({
-        url: "create-card",
+        url: "card/create-card",
         method: "POST",
         data: body,
       }),
@@ -44,7 +44,7 @@ export const cardAPI = createApi({
 
     getAllCards: builder.query({
       query: () => ({
-        url: "get-all-cards",
+        url: "card/get-all-cards",
         method: "GET",
       }),
       providesTags: ["Card"],
@@ -52,7 +52,7 @@ export const cardAPI = createApi({
 
     deleteCard: builder.mutation({
       query: (cardId) => ({
-        url: `delete-card/${cardId}`,
+        url: `card/delete-card/${cardId}`,
         method: "DELETE",
       }),
       invalidatesTags: ["Card"],

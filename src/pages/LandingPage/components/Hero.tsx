@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../../../style";
 import { robot } from "../../../assets";
 import GetStarted from "./GetStarted";
