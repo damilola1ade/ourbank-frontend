@@ -1,14 +1,7 @@
-import React from "react";
 import styles from "../../style";
 import {
-  Billing,
-  CardDeal,
-  CTA,
-  Footer,
   Navbar,
-  Stats,
   Hero,
-  Testimonials,
 } from "./components";
 
 const LandingPage = () => (
@@ -25,7 +18,7 @@ const LandingPage = () => (
       </div>
     </div>
 
-    <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+    {/* <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <Stats />
         <Billing />
@@ -34,7 +27,7 @@ const LandingPage = () => (
         <CTA />
         <Footer />
       </div>
-    </div>
+    </div> */}
   </div>
 );
 

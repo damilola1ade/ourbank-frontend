@@ -1,7 +1,5 @@
-import React from "react";
 import { features } from "../../../constants";
 import styles, { layout } from "../../../style";
-import {Button} from "../../../components/Button";
 
 interface Props {
   icon: string;
@@ -45,8 +43,6 @@ const Business = () => {
           building credit, earning rewards and saving money. But with hundreds
           of credit cards on the market.
         </p>
-
-        <Button styles="mt-10" />
       </div>
 
       <div className={`${layout.sectionImg} flex-col`}>

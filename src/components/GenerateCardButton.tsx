@@ -1,14 +1,76 @@
-import { AnimatedButton } from "./ui/tailwindcss-buttons";
+import React from "react";
+import { Box, Button } from "@chakra-ui/react";
 
-export const GenerateCardButton = () => {
+export const AnimatedButton = ({
+  children,
+  className,
+  onClick,
+}: {
+  children?: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+}) => {
   return (
-    <AnimatedButton>
-      <button className="relative inline-flex h-12 overflow-hidden rounded-full p-[1px] focus:outline-none focus:ring-2 focus:ring-slate-400 focus:ring-offset-2 focus:ring-offset-slate-50">
-        <span className="absolute inset-[-1000%] animate-[spin_2s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#E2CBFF_0%,#393BB2_50%,#E2CBFF_100%)]" />
-        <span className="inline-flex h-full w-[240px] cursor-pointer items-center justify-center rounded-full bg-slate-950 px-3 py-1 text-md font-medium text-white backdrop-blur-3xl">
+    <Box onClick={onClick} className={className} position="relative">
+      <Box
+        position="absolute"
+        bg="dot-whiteAlpha.50"
+        _before={{
+          content: '""',
+          bg: "dot-blackAlpha.50",
+          position: "absolute",
+          inset: 0,
+        }}
+      />
+      <Box position="relative" zIndex={40}>
+        {children}
+      </Box>
+    </Box>
+  );
+};
+
+export const GenerateCardButton = ({ onClick }: { onClick: () => void }) => {
+  return (
+    <AnimatedButton onClick={onClick}>
+      <Button
+        position="relative"
+        height="12"
+        overflow="hidden"
+        rounded="full"
+        padding="1px"
+        _focus={{
+          outline: "none",
+          ring: 2,
+          ringColor: "slate.400",
+          ringOffset: 2,
+          ringOffsetColor: "slate.50",
+        }}
+      >
+        <Box
+          position="absolute"
+          inset="-100%"
+          animation="spin 6s linear infinite"
+          bgGradient="conic-gradient(from 90deg at 50% 50%, #59c0cd 0%, #59c0cd 10%, #59c0cd 100%)"
+        />
+        <Box
+          display="inline-flex"
+          height="full"
+          width="320px"
+          cursor="pointer"
+          alignItems="center"
+          justifyContent="center"
+          rounded="full"
+          bg="slate.950"
+          px={3}
+          py={1}
+          fontSize="md"
+          fontWeight="medium"
+          color="white"
+          zIndex={72}
+        >
           Generate card
-        </span>
-      </button>
+        </Box>
+      </Button>
     </AnimatedButton>
   );
 };

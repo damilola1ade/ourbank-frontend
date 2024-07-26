@@ -23,7 +23,7 @@ const Hero = () => {
   if (error) return <Error />;
 
   return (
-    <div className="flex flex-col items-center justify-center gap-8 p-4">
+    <div className="flex flex-col items-center justify-center gap-8 p-4 mt-12">
       <div className="text-center">
         <h1
           className="flex-1 font-poppins font-semibold ss:text-[72px] text-[35px]
@@ -38,7 +38,7 @@ const Hero = () => {
 
       <CreateCardForm />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-12">
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent
             key={item.id}

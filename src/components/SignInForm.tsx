@@ -1,26 +1,28 @@
 import React from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useLoginMutation } from "../store/auth";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { cn } from "../lib/utils";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { FormValues } from "@/types";
-import { LoginButton } from "./SignInButton";
-
 import {
+  Button,
   Modal,
-  ModalTrigger,
-  ModalBody,
+  ModalOverlay,
   ModalContent,
-} from "./ui/animated-modal";
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  useDisclosure,
+  FormControl,
+  FormLabel,
+  Input,
+  VStack,
+} from "@chakra-ui/react";
 
 export function SignInForm() {
   const { handleSubmit, control } = useForm<FormValues>();
-
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [login, { isLoading }] = useLoginMutation();
-
   const navigate = useNavigate();
 
   const onSubmit = async (data: FormValues) => {
@@ -42,26 +44,43 @@ export function SignInForm() {
   };
 
   return (
-    <Modal>
-      <ModalTrigger>
-        <LoginButton />
-      </ModalTrigger>
-      <ModalBody>
-        <ModalContent>
-          <div className="font-poppins max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-            <h2 className="font-bold text-xl text-neutral-800 dark:text-neutral-200">
-              Sign in to your account
-            </h2>
+    <>
+      <Button onClick={onOpen} size={{ base: "sm", lg: "lg" }}>
+        Login
+      </Button>
 
-            <form className="my-8" onSubmit={handleSubmit(onSubmit)} noValidate>
-              <div className="flex flex-col space-y-4 mb-4">
-                <LabelInputContainer className="">
-                  <Label htmlFor="email">Email</Label>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size="sm"
+        motionPreset="slideInRight"
+      >
+        <ModalOverlay
+          bg="blackAlpha.300"
+          backdropFilter="blur(10px) hue-rotate(0deg)"
+        />
+        <ModalContent
+          bg="black"
+          border="1px"
+          borderColor="white"
+          borderRadius="lg"
+        >
+          <ModalHeader color="white">Sign in to your account</ModalHeader>
+          <ModalCloseButton color="white" />
+          <ModalBody>
+            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+              <VStack spacing={4} mb={4}>
+                <FormControl>
+                  <FormLabel htmlFor="email" color="white">
+                    Email
+                  </FormLabel>
                   <Controller
                     name="email"
                     control={control}
                     render={({ field }) => (
                       <Input
+                        color="white"
                         id="email"
                         placeholder="damilola@gmail.com"
                         type="email"
@@ -71,15 +90,18 @@ export function SignInForm() {
                       />
                     )}
                   />
-                </LabelInputContainer>
+                </FormControl>
 
-                <LabelInputContainer className="">
-                  <Label htmlFor="password">Password</Label>
+                <FormControl>
+                  <FormLabel htmlFor="password" color="white">
+                    Password
+                  </FormLabel>
                   <Controller
                     name="password"
                     control={control}
                     render={({ field }) => (
                       <Input
+                        color="white"
                         id="password"
                         type="password"
                         {...field}
@@ -88,37 +110,23 @@ export function SignInForm() {
                       />
                     )}
                   />
-                </LabelInputContainer>
+                </FormControl>
 
-                <div className="pt-3 ">
-                  <button
-                    className="bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                    type="submit"
-                    disabled={isLoading}
-                    aria-busy={isLoading}
-                  >
-                    {isLoading ? "..." : "Login"}
-                  </button>
-                </div>
-              </div>
+                <Button
+                  w="100%"
+                  mt={4}
+                  borderRadius="md"
+                  type="submit"
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
+                >
+                  Login
+                </Button>
+              </VStack>
             </form>
-          </div>
+          </ModalBody>
         </ModalContent>
-      </ModalBody>
-    </Modal>
+      </Modal>
+    </>
   );
 }
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
-};

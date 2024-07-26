@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "../../style";
 import { Hero, Navbar } from "./components";
 

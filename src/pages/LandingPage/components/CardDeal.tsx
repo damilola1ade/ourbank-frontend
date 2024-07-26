@@ -1,7 +1,6 @@
-import React from "react";
+import { SignUpForm } from "@/components";
 import { card } from "../../../assets";
 import styles, { layout } from "../../../style";
-import {Button} from "../../../components/Button";
 
 const CardDeal = () => (
   <section className={layout.section}>
@@ -14,7 +13,7 @@ const CardDeal = () => (
         This is very self explanatory tbh. And yes this is from Mr. Damilola as
         well.
       </p>
-      <Button styles="mt-10" text="Sign in" />
+      <SignUpForm />
     </div>
 
     <div className={layout.sectionImg}>

@@ -1,6 +1,4 @@
-import React from "react";
 import styles from "../../../style";
-import {Button} from "../../../components/Button";
 
 const CTA = () => (
   <section
@@ -13,9 +11,6 @@ const CTA = () => (
         Finally! All those formal talk, eh? So, Let's do this!
       </p>
     </div>
-
-    <div className={`${styles.flexCenter} sm:ml-10 ml-0 mt-10`}></div>
-    <Button text="Sign in" styles={""} />
   </section>
 );
 

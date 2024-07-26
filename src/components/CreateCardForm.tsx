@@ -1,29 +1,32 @@
-import React from "react";
 import { useForm, Controller } from "react-hook-form";
-import { Label } from "./ui/label";
-import { Input } from "./ui/input";
-import { Select } from "./ui/select";
-import { cn } from "../lib/utils";
-import { FormValues } from "@/types";
 import { useCreateCardMutation } from "@/store/cards";
 import { toast } from "sonner";
 import {
+  useDisclosure,
+  Button,
   Modal,
-  ModalTrigger,
-  ModalBody,
+  ModalOverlay,
   ModalContent,
-} from "./ui/animated-modal";
-
-import { GenerateCardButton } from "./GenerateCardButton";
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  FormControl,
+  FormLabel,
+  Input,
+  Select,
+  VStack,
+} from "@chakra-ui/react";
+import { FormValues } from "@/types";
 
 export function CreateCardForm() {
-  const { handleSubmit, control } = useForm<FormValues>({
+  const { handleSubmit, control, reset } = useForm<FormValues>({
     defaultValues: {
       name: "",
       provider: "MasterCard",
     },
   });
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const [createCard, { isLoading }] = useCreateCardMutation();
 
   const onSubmit = async (data: FormValues) => {
@@ -35,6 +38,8 @@ export function CreateCardForm() {
 
       if (response) {
         toast.success("Virtual card created successfully!");
+        reset();
+        onClose();
       }
     } catch (error) {
       const typedError = error as Error;
@@ -43,21 +48,37 @@ export function CreateCardForm() {
   };
 
   return (
-    <Modal>
-      <ModalTrigger>
-        <GenerateCardButton />
-      </ModalTrigger>
-      <ModalBody>
-        <ModalContent>
-          <div className="max-w-md w-full mx-auto rounded-none md:rounded-2xl p-4 md:p-8 shadow-input bg-white dark:bg-black">
-            <h2 className="font-bold font-poppins text-xl text-neutral-800 dark:text-neutral-200">
-              Create your virtual card
-            </h2>
+    <>
+      <Button onClick={onOpen} w='250px' size='lg'>
+        Generate card
+      </Button>
 
-            <form className="my-8" onSubmit={handleSubmit(onSubmit)}>
-              <div className="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-2 mb-4">
-                <LabelInputContainer>
-                  <Label htmlFor="cardName">Name on card</Label>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        isCentered
+        size="sm"
+        motionPreset="slideInRight"
+      >
+        <ModalOverlay
+          bg="blackAlpha.300"
+          backdropFilter="blur(10px) hue-rotate(0deg)"
+        />
+        <ModalContent
+          bg="black"
+          border="1px"
+          borderColor="white"
+          borderRadius="lg"
+        >
+          <ModalHeader color="white">Create a Virtual Card</ModalHeader>
+          <ModalCloseButton color="white" />
+          <ModalBody>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <VStack spacing={4} mb={4}>
+                <FormControl>
+                  <FormLabel htmlFor="cardName" color="white">
+                    Name on card
+                  </FormLabel>
                   <Controller
                     name="cardName"
                     control={control}
@@ -66,52 +87,48 @@ export function CreateCardForm() {
                         id="cardName"
                         placeholder="Damilola Adegbemile"
                         type="text"
+                        bg='white'
                         {...field}
                       />
                     )}
                   />
-                </LabelInputContainer>
-              </div>
-              <LabelInputContainer className="mb-4">
-                <Label htmlFor="provider">Provider</Label>
-                <Controller
-                  name="provider"
-                  control={control}
-                  render={({ field }) => (
-                    <Select id="provider" {...field}>
-                      <option value="MasterCard">MasterCard</option>
-                      <option value="Verve">Verve</option>
-                      <option value="Visa">Visa</option>
-                    </Select>
-                  )}
-                />
-              </LabelInputContainer>
+                </FormControl>
 
-              <button
-                className="mt-6 bg-gradient-to-br relative group/btn from-black dark:from-zinc-900 dark:to-zinc-900 to-neutral-600 block dark:bg-zinc-800 w-full text-white rounded-md h-10 font-medium shadow-[0px_1px_0px_0px_#ffffff40_inset,0px_-1px_0px_0px_#ffffff40_inset] dark:shadow-[0px_1px_0px_0px_var(--zinc-800)_inset,0px_-1px_0px_0px_var(--zinc-800)_inset]"
-                type="submit"
-                disabled={isLoading}
-              >
-                Create card
-              </button>
+                <FormControl>
+                  <FormLabel htmlFor="provider" color="white">
+                    Provider
+                  </FormLabel>
+                  <Controller
+                    name="provider"
+                    control={control}
+                    render={({ field }) => (
+                      <Select id="provider" bg='white' {...field}>
+                        <option value="MasterCard">MasterCard</option>
+                        <option value="Verve">Verve</option>
+                        <option value="Visa">Visa</option>
+                      </Select>
+                    )}
+                  />
+                </FormControl>
+
+                <Button
+                  w="100%"
+                  mt={6}
+                  bgGradient="linear(to-br, black, neutral.600)"
+                 
+                  borderRadius="md"
+                  type="submit"
+                  isLoading={isLoading}
+                  isDisabled={isLoading}
+                  _hover={{ bgGradient: "linear(to-br, black, neutral.500)" }}
+                >
+                  Create card
+                </Button>
+              </VStack>
             </form>
-          </div>
+          </ModalBody>
         </ModalContent>
-      </ModalBody>
-    </Modal>
+      </Modal>
+    </>
   );
 }
-
-const LabelInputContainer = ({
-  children,
-  className,
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => {
-  return (
-    <div className={cn("flex flex-col space-y-2 w-full", className)}>
-      {children}
-    </div>
-  );
-};
