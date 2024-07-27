@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { CardBody, CardContainer, CardItem } from "./ui/tailwindcss-3dcard";
 import { verveLogo, mastercardLogo, visaLogo, sim } from "../assets";
 import { CreditCardComponentProps, FormValues } from "@/types";
 
@@ -17,6 +16,7 @@ import {
   Icon,
   InputGroup,
   InputRightElement,
+  Box,
 } from "@chakra-ui/react";
 
 import { useForm, Controller } from "react-hook-form";
@@ -25,7 +25,9 @@ import { useRevealCardMutation } from "@/store/cards";
 import { useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOff } from "lucide-react";
 
-export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
+export const MobileCreditCardComponent = ({
+  item,
+}: CreditCardComponentProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [show, setShow] = useState(false);
@@ -58,54 +60,43 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
 
   return (
     <>
-      <CardContainer className="bg-[url('./assets/bg.avif')] rounded-md">
-        <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
+      <Box className="relative bg-[url('./assets/bg.avif')] rounded-md">
+        <Box className="bg-opacity-1 bg-blend-darken h-[160px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
-              <img src={verveLogo} className="w-20" />
+              <img src={verveLogo} className="w-14" />
             )}
             {item.provider === "MasterCard" && (
-              <img src={mastercardLogo} className="w-12" />
+              <img src={mastercardLogo} className="w-8" />
             )}
             {item.provider === "Visa" && (
-              <img src={visaLogo} className="w-14" />
+              <img src={visaLogo} className="w-10" />
             )}
           </div>
-          <CardItem as="p" className="max-w-sm">
-            <img
-              src={sim}
-              className="w-10 sm:w-12 border-2 border-sky-500 rounded-md"
-            />
-          </CardItem>
-          <CardItem
+          <Box as="p" className="max-w-sm">
+            <img src={sim} className="w-8 border-2 border-sky-500 rounded-md" />
+          </Box>
+          <Box
             as="p"
-            className="w-full font-bold text-black text-xs lg:text-2xl mt-5"
-            style={{ letterSpacing: "0.6rem" }}
+            className="w-full font-bold text-black text-xs mt-5"
+            style={{ letterSpacing: "0.5rem" }}
           >
             **** **** **** ****
-          </CardItem>
-          <CardItem
+          </Box>
+          <Box
             as="p"
             className="mt-4 pr-4 w-full flex items-end justify-end font-poppins text-black text-xs lg:text-lg"
           >
             {item.expiryDate}
-          </CardItem>
-          <div className="mt-4 w-full flex justify-between">
-            <CardItem
-              href="https://twitter.com/mannupaaji"
-              target="__blank"
-              className="font-bold text-xs lg:text-lg text-black tracking-wide"
-            >
+          </Box>
+          <div className="mt-1 w-full flex justify-between">
+            <Box className="font-bold text-xs lg:text-lg text-black tracking-wide">
               {item.cardName?.toUpperCase()}
-            </CardItem>
+            </Box>
 
-            <CardItem
-              href="https://twitter.com/mannupaaji"
-              target="__blank"
-              className="pr-4 font-bold text-xs lg:text-lg text-black tracking-wide"
-            >
+            <Box className="pr-4 font-bold text-xs lg:text-lg text-black tracking-wide">
               ***
-            </CardItem>
+            </Box>
           </div>
 
           <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-black bg-opacity-0 text-white opacity-0 group-hover:bg-opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none group-hover:pointer-events-auto">
@@ -116,8 +107,8 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
               Reveal card
             </button>
           </div>
-        </CardBody>
-      </CardContainer>
+        </Box>
+      </Box>
 
       <Modal isOpen={isOpen} onClose={onClose} isCentered>
         <ModalOverlay />
@@ -173,10 +164,6 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
               borderBottomRadius="md"
             >
               <Button
-              borderRadius="md"
-              bg="black"
-              _hover={{ bg: "gray.800" }}
-              color="white"
                 type="submit"
                 isLoading={isLoading}
                 isDisabled={isLoading}

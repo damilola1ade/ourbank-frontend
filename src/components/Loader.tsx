@@ -1,7 +1,15 @@
+import { Flex, Spinner } from "@chakra-ui/react";
+
 export const Loader = () => {
   return (
-    <div className="min-h-screen flex justify-center items-center text-white text-lg">
-      Loading...
-    </div>
+    <Flex minH='70vh' justifyContent='center' alignItems='center'>
+      <Spinner
+        thickness="4px"
+        speed="0.65s"
+        emptyColor="gray.800"
+        color="white"
+        size="xl"
+      />
+    </Flex>
   );
 };

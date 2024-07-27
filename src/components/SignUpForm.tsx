@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useSignUpMutation } from "../store/auth";
 import { useNavigate } from "react-router-dom";
@@ -11,12 +11,17 @@ import {
   ModalHeader,
   ModalCloseButton,
   ModalBody,
+  ModalFooter,
   useDisclosure,
   FormControl,
   FormLabel,
   Input,
   VStack,
+  Icon,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import { EyeIcon, EyeOff } from "lucide-react";
 
 interface FormValues {
   name: string;
@@ -26,7 +31,10 @@ interface FormValues {
 
 export function SignUpForm() {
   const { handleSubmit, control } = useForm<FormValues>();
-  
+
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(!show);
+
   const navigate = useNavigate();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -55,7 +63,7 @@ export function SignUpForm() {
   return (
     <>
       <Button onClick={onOpen} size={{ base: "sm", lg: "lg" }}>
-        Sign up
+        Register
       </Button>
 
       <Modal
@@ -65,20 +73,20 @@ export function SignUpForm() {
         size="sm"
         motionPreset="slideInRight"
       >
-        <ModalOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(10px) hue-rotate(0deg)"
-        />
-        <ModalContent
-          bg="black"
-          border="1px"
-          borderColor="white"
-          borderRadius="lg"
-        >
-          <ModalHeader color="white">Register your account</ModalHeader>
-          <ModalCloseButton color="white" />
-          <ModalBody>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <ModalOverlay
+            bg="blackAlpha.300"
+            backdropFilter="blur(10px) hue-rotate(0deg)"
+          />
+          <ModalContent
+            bg="black"
+            border="1px"
+            borderColor="white"
+            borderRadius="lg"
+          >
+            <ModalHeader color="white">Sign in to your account</ModalHeader>
+            <ModalCloseButton color="white" />
+            <ModalBody>
               <VStack spacing={4} mb={4}>
                 <FormControl>
                   <FormLabel htmlFor="name" color="white">
@@ -89,9 +97,7 @@ export function SignUpForm() {
                     control={control}
                     render={({ field }) => (
                       <Input
-                        id="name"
                         placeholder="Damilola Adegbemile"
-                        color="white"
                         type="text"
                         {...field}
                         required
@@ -110,9 +116,7 @@ export function SignUpForm() {
                     control={control}
                     render={({ field }) => (
                       <Input
-                        id="email"
                         placeholder="damilola@gmail.com"
-                        color="white"
                         type="email"
                         {...field}
                         required
@@ -130,32 +134,56 @@ export function SignUpForm() {
                     name="password"
                     control={control}
                     render={({ field }) => (
-                      <Input
-                        id="password"
-                        type="password"
-                        color="white"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
+                      <InputGroup>
+                        <Input
+                          type={show ? "text" : "password"}
+                          {...field}
+                          required
+                          aria-required="true"
+                        />
+
+                        <InputRightElement width="4.5rem">
+                          <Button
+                            ml={6}
+                            bg="white"
+                            h="2.0rem"
+                            size="sm"
+                            onClick={handleShow}
+                          >
+                            {show ? (
+                              <Icon as={EyeIcon} />
+                            ) : (
+                              <Icon as={EyeOff} />
+                            )}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
                     )}
                   />
                 </FormControl>
-
-                <Button
-                  mt={4}
-                  w="100%"
-                  borderRadius="md"
-                  type="submit"
-                  isLoading={isLoading}
-                  isDisabled={isLoading}
-                >
-                  Register
-                </Button>
               </VStack>
-            </form>
-          </ModalBody>
-        </ModalContent>
+            </ModalBody>
+
+            <ModalFooter
+              bg="white"
+              border="1px"
+              borderColor="white"
+              borderBottomRadius="md"
+            >
+              <Button
+                borderRadius="md"
+                bg="black"
+                _hover={{ bg: "gray.800" }}
+                color="white"
+                type="submit"
+                isLoading={isLoading}
+                isDisabled={isLoading}
+              >
+                Register
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </form>
       </Modal>
     </>
   );

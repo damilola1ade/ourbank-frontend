@@ -1,23 +1,32 @@
 import { toast } from "sonner";
+import { SimpleGrid } from "@chakra-ui/react";
 import {
   CreateCardForm,
   CreditCardComponent,
   Error,
   Loader,
+  MobileCreditCardComponent,
 } from "../../../components";
 import { useDeleteCardMutation, useGetAllCardsQuery } from "@/store/cards";
 import { Item } from "@/types";
 
 const Hero = () => {
   const { data } = useGetAllCardsQuery("");
+
   const [deleteCard, { isLoading, error }] = useDeleteCardMutation();
 
-  const handleDelete = async (cardId: string) => {
+  const handleDelete = async (cardId: { body: any; cardId: string }) => {
     try {
       await deleteCard(cardId).unwrap();
       toast.success("Card deleted");
     } catch (error) {}
   };
+
+  const limitReached = data?.cards?.length === 2;
+
+  if (limitReached) {
+    toast.info("Maximum number of cards created");
+  }
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
@@ -36,9 +45,14 @@ const Hero = () => {
 
       <div className="absolute z-[0] w-[50%] h-[50%] right-20 bottom-20 blue__gradient" />
 
-      <CreateCardForm />
+      {limitReached ? null : <CreateCardForm />}
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-5 mt-12">
+      {/*Large screen credit card component*/}
+      <SimpleGrid
+        columns={[1, 1, 2]}
+        spacing={12}
+        display={{ base: "none", md: "block" }}
+      >
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent
             key={item.id}
@@ -46,7 +60,22 @@ const Hero = () => {
             handleDelete={() => handleDelete(item.id)}
           />
         ))}
-      </div>
+      </SimpleGrid>
+
+      {/*Mobile screen credit card component*/}
+      <SimpleGrid
+        columns={1}
+        spacing={8}
+        display={{ base: "grid", md: "none" }}
+      >
+        {data?.cards?.map((item: Item) => (
+          <MobileCreditCardComponent
+            key={item.id}
+            item={item}
+            handleDelete={() => handleDelete(item.id)}
+          />
+        ))}
+      </SimpleGrid>
     </div>
   );
 };

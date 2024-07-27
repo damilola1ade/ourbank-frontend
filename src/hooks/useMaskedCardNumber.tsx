@@ -8,7 +8,7 @@ export const useMaskedCardNumber = (cardNumber: string) => {
       const firstPart = cardNumber.slice(0, 4);
       const middlePart = "**** ****";
       const lastPart = cardNumber.slice(12, 16);
-      setMaskedNumber(`${firstPart} ${middlePart} ${lastPart}`);
+      setMaskedNumber(`${firstPart}${middlePart}${lastPart}`);
     }
   }, [cardNumber]);
 

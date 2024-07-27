@@ -15,6 +15,7 @@ import {
   Input,
   Select,
   VStack,
+  ModalFooter,
 } from "@chakra-ui/react";
 import { FormValues } from "@/types";
 
@@ -49,7 +50,7 @@ export function CreateCardForm() {
 
   return (
     <>
-      <Button onClick={onOpen} w='250px' size='lg'>
+      <Button onClick={onOpen} w="250px" size="lg">
         Generate card
       </Button>
 
@@ -60,20 +61,20 @@ export function CreateCardForm() {
         size="sm"
         motionPreset="slideInRight"
       >
-        <ModalOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(10px) hue-rotate(0deg)"
-        />
-        <ModalContent
-          bg="black"
-          border="1px"
-          borderColor="white"
-          borderRadius="lg"
-        >
-          <ModalHeader color="white">Create a Virtual Card</ModalHeader>
-          <ModalCloseButton color="white" />
-          <ModalBody>
-            <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <ModalOverlay
+            bg="blackAlpha.300"
+            backdropFilter="blur(10px) hue-rotate(0deg)"
+          />
+          <ModalContent
+            bg="black"
+            border="1px"
+            borderColor="white"
+            borderRadius="lg"
+          >
+            <ModalHeader color="white">Create a Virtual Card</ModalHeader>
+            <ModalCloseButton color="white" />
+            <ModalBody>
               <VStack spacing={4} mb={4}>
                 <FormControl>
                   <FormLabel htmlFor="cardName" color="white">
@@ -84,10 +85,8 @@ export function CreateCardForm() {
                     control={control}
                     render={({ field }) => (
                       <Input
-                        id="cardName"
                         placeholder="Damilola Adegbemile"
                         type="text"
-                        bg='white'
                         {...field}
                       />
                     )}
@@ -102,7 +101,7 @@ export function CreateCardForm() {
                     name="provider"
                     control={control}
                     render={({ field }) => (
-                      <Select id="provider" bg='white' {...field}>
+                      <Select id="provider" {...field}>
                         <option value="MasterCard">MasterCard</option>
                         <option value="Verve">Verve</option>
                         <option value="Visa">Visa</option>
@@ -110,24 +109,29 @@ export function CreateCardForm() {
                     )}
                   />
                 </FormControl>
-
-                <Button
-                  w="100%"
-                  mt={6}
-                  bgGradient="linear(to-br, black, neutral.600)"
-                 
-                  borderRadius="md"
-                  type="submit"
-                  isLoading={isLoading}
-                  isDisabled={isLoading}
-                  _hover={{ bgGradient: "linear(to-br, black, neutral.500)" }}
-                >
-                  Create card
-                </Button>
               </VStack>
-            </form>
-          </ModalBody>
-        </ModalContent>
+            </ModalBody>
+
+            <ModalFooter
+              bg="white"
+              border="1px"
+              borderColor="white"
+              borderBottomRadius="md"
+            >
+              <Button
+                borderRadius="md"
+                bg="black"
+                _hover={{ bg: "gray.800" }}
+                color="white"
+                type="submit"
+                isLoading={isLoading}
+                isDisabled={isLoading}
+              >
+                Generate card
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </form>
       </Modal>
     </>
   );

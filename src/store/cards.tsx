@@ -50,14 +50,38 @@ export const cardAPI = createApi({
       providesTags: ["Card"],
     }),
 
-    deleteCard: builder.mutation({
+    revealCard: builder.mutation({
+      query: ({ body, cardId }: { body: any; cardId: any }) => ({
+        url: `card/reveal-card/${cardId}`,
+        method: "POST",
+        data: body,
+      }),
+      invalidatesTags: ["Card"],
+    }),
+
+    getSingleCard: builder.query({
       query: (cardId) => ({
+        url: `card/get-card/${cardId}`,
+        method: "GET",
+      }),
+      providesTags: ["Card"],
+    }),
+
+    deleteCard: builder.mutation({
+      query: ({ body, cardId }: { body: any; cardId: any }) => ({
         url: `card/delete-card/${cardId}`,
         method: "DELETE",
+        data: body,
       }),
       invalidatesTags: ["Card"],
     }),
   }),
 });
 
-export const { useCreateCardMutation, useGetAllCardsQuery, useDeleteCardMutation } = cardAPI;
+export const {
+  useCreateCardMutation,
+  useGetAllCardsQuery,
+  useGetSingleCardQuery,
+  useRevealCardMutation,
+  useDeleteCardMutation,
+} = cardAPI;

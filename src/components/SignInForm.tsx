@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 import { useLoginMutation } from "../store/auth";
 import { useNavigate } from "react-router-dom";
@@ -17,12 +17,23 @@ import {
   FormLabel,
   Input,
   VStack,
+  ModalFooter,
+  InputRightElement,
+  Icon,
+  InputGroup,
 } from "@chakra-ui/react";
+import { EyeIcon, EyeOff } from "lucide-react";
 
 export function SignInForm() {
   const { handleSubmit, control } = useForm<FormValues>();
+
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(!show);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const [login, { isLoading }] = useLoginMutation();
+
   const navigate = useNavigate();
 
   const onSubmit = async (data: FormValues) => {
@@ -56,20 +67,20 @@ export function SignInForm() {
         size="sm"
         motionPreset="slideInRight"
       >
-        <ModalOverlay
-          bg="blackAlpha.300"
-          backdropFilter="blur(10px) hue-rotate(0deg)"
-        />
-        <ModalContent
-          bg="black"
-          border="1px"
-          borderColor="white"
-          borderRadius="lg"
-        >
-          <ModalHeader color="white">Sign in to your account</ModalHeader>
-          <ModalCloseButton color="white" />
-          <ModalBody>
-            <form onSubmit={handleSubmit(onSubmit)} noValidate>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <ModalOverlay
+            bg="blackAlpha.300"
+            backdropFilter="blur(10px) hue-rotate(0deg)"
+          />
+          <ModalContent
+            bg="black"
+            border="1px"
+            borderColor="white"
+            borderRadius="lg"
+          >
+            <ModalHeader color="white">Sign in to your account</ModalHeader>
+            <ModalCloseButton color="white" />
+            <ModalBody>
               <VStack spacing={4} mb={4}>
                 <FormControl>
                   <FormLabel htmlFor="email" color="white">
@@ -80,8 +91,6 @@ export function SignInForm() {
                     control={control}
                     render={({ field }) => (
                       <Input
-                        color="white"
-                        id="email"
                         placeholder="damilola@gmail.com"
                         type="email"
                         {...field}
@@ -100,32 +109,57 @@ export function SignInForm() {
                     name="password"
                     control={control}
                     render={({ field }) => (
-                      <Input
-                        color="white"
-                        id="password"
-                        type="password"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
+                      <InputGroup>
+                        <Input
+                          id="password"
+                          type={show ? "text" : "password"}
+                          {...field}
+                          required
+                          aria-required="true"
+                        />
+
+                        <InputRightElement width="4.5rem">
+                          <Button
+                            ml={6}
+                            bg="white"
+                            h="2.0rem"
+                            size="sm"
+                            onClick={handleShow}
+                          >
+                            {show ? (
+                              <Icon as={EyeIcon} />
+                            ) : (
+                              <Icon as={EyeOff} />
+                            )}
+                          </Button>
+                        </InputRightElement>
+                      </InputGroup>
                     )}
                   />
                 </FormControl>
-
-                <Button
-                  w="100%"
-                  mt={4}
-                  borderRadius="md"
-                  type="submit"
-                  isLoading={isLoading}
-                  isDisabled={isLoading}
-                >
-                  Login
-                </Button>
               </VStack>
-            </form>
-          </ModalBody>
-        </ModalContent>
+            </ModalBody>
+
+            <ModalFooter
+              bg="white"
+              border="1px"
+              borderColor="white"
+              borderBottomRadius="md"
+            >
+              <Button
+                borderRadius="md"
+                bg="black"
+                _hover={{ bg: "gray.800" }}
+                color='white'
+                type="submit"
+                isLoading={isLoading}
+                isDisabled={isLoading}
+              >
+                Login
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </form>
       </Modal>
     </>
   );

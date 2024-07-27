@@ -4,7 +4,7 @@ import binance from "./binance.png";
 import card from "./card.png";
 import coinbase from "./coinbase.png";
 import dropbox from "./dropbox.png";
-import logo from "./logo.svg";
+import logo from "./logo.webp";
 import quotes from "./quotes.svg";
 import robot from "./robot.png";
 import send from "./Send.svg";
@@ -29,6 +29,7 @@ import verveLogo from './verve.svg'
 import visaLogo from './visa.svg'
 import bg from './bg.jpg'
 import sim from './sim.png'
+import hero from './hero.webp'
 
 export {
   airbnb,
@@ -61,5 +62,6 @@ export {
   verveLogo,
   bg,
   sim,
-  visaLogo
+  visaLogo,
+  hero
 };
