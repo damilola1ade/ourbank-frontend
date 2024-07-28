@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { logo } from "../../../assets";
 import { SignInForm, SignUpForm } from "../../../components";
 
 const Navbar = () => {
@@ -36,7 +35,7 @@ const Navbar = () => {
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src={logo} alt="ourbank" className="w-[120px] h-[32px]" />
+      <img src="/images/logo.webp" alt="ourbank" className="w-[120px] h-[32px]" />
 
       <div className="flex flex-row gap-4">
         <SignInForm />

@@ -90,7 +90,7 @@ export function SignInForm() {
                     name="email"
                     control={control}
                     render={({ field }) => (
-                      <Input
+                      <Input bg='white' color='black' 
                         placeholder="damilola@gmail.com"
                         type="email"
                         {...field}
@@ -110,7 +110,7 @@ export function SignInForm() {
                     control={control}
                     render={({ field }) => (
                       <InputGroup>
-                        <Input
+                        <Input bg='white' color='black' 
                           id="password"
                           type={show ? "text" : "password"}
                           {...field}

@@ -1,18 +1,18 @@
-// import '@fontsource-variable/lora';
+import '@fontsource/poppins';
 
-// export const globalStyles = {
-//   styles: {
-//     global: {
-//       heading: {
-//         fontFamily: "Lora Variable, sans-serif",
-//       },
-//       body: {
-//         fontFamily: "Lora Variable, sans-serif",
+export const globalStyles = {
+  styles: {
+    global: {
+      heading: {
+        fontFamily: "Poppins, sans-serif",
+      },
+      body: {
+        fontFamily: "Poppins, sans-serif",
         
-//       },
-//       html: {
-//         fontFamily: "Lora Variable, sans-serif",
-//       },
-//     },
-//   },
-// };
+      },
+      html: {
+        fontFamily: "Poppins, sans-serif",
+      },
+    },
+  },
+};

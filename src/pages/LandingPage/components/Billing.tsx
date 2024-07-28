@@ -1,12 +1,10 @@
-import React from "react";
-import { apple, bill, google } from "../../../assets";
 import styles, { layout } from "../../../style";
 
 const Billing = () => (
   <section id="product" className={layout.sectionReverse}>
     <div className={layout.sectionImgReverse}>
       <img
-        src={bill}
+        src="/images/bill.svg"
         alt="billing"
         className="w-[100%] h-[100%] relative z-[5]"
       />
@@ -23,13 +21,13 @@ const Billing = () => (
 
       <div className="flex flex-row flex-wrap sm:mt-10 mt-6">
         <img
-          src={apple}
+          src="/images/apple.svg"
           alt="apple_store"
           className="w-[128px] h-[42px] object-contain mr-5
           cursor-pointer"
         />
         <img
-          src={google}
+          src="/images/google.svg"
           alt="google_play"
           className="w-[128px] h-[42px] object-contain mr-5
           cursor-pointer"

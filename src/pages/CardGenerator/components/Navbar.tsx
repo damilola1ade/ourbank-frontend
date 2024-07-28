@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
-import { close, logo, menu } from "../../../assets";
 import { LogoutButton } from "../../../components";
 
 const Navbar = () => {
@@ -8,7 +7,11 @@ const Navbar = () => {
 
   return (
     <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src={logo} alt="ourbank" className="w-[124px] h-[32px]" />
+      <img
+        src="/images/logo.webp"
+        alt="ourbank"
+        className="w-[124px] h-[32px]"
+      />
 
       <div className="sm:flex hidden">
         <LogoutButton />
@@ -16,7 +19,7 @@ const Navbar = () => {
 
       <div className="sm:hidden flex flex-1 justify-end items-center">
         <img
-          src={toggle ? close : menu}
+          src={toggle ? "/images/close.svg" : "/images/menu.svg"}
           alt="menu"
           className="w-[28px] h-[28px] object-contain"
           onClick={() => setToggle(!toggle)}

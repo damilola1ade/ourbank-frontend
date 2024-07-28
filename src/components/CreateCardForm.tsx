@@ -85,6 +85,8 @@ export function CreateCardForm() {
                     control={control}
                     render={({ field }) => (
                       <Input
+                        bg="white"
+                        color="black"
                         placeholder="Damilola Adegbemile"
                         type="text"
                         {...field}

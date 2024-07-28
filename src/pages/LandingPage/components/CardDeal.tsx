@@ -1,5 +1,4 @@
 import { SignUpForm } from "@/components";
-import { card } from "../../../assets";
 import styles, { layout } from "../../../style";
 
 const CardDeal = () => (
@@ -17,7 +16,7 @@ const CardDeal = () => (
     </div>
 
     <div className={layout.sectionImg}>
-      <img src={card} alt="card" className="w-[100%] h-[100%] relative z-[5]" />
+      <img src="/images/card.svg" alt="card" className="w-[100%] h-[100%] relative z-[5]" />
     </div>
   </section>
 );

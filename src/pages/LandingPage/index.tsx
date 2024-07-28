@@ -17,17 +17,6 @@ const LandingPage = () => (
         <Hero />
       </div>
     </div>
-
-    {/* <div className={`${styles.paddingX} ${styles.flexCenter}`}>
-      <div className={`${styles.boxWidth}`}>
-        <Stats />
-        <Billing />
-        <CardDeal />
-        <Testimonials />
-        <CTA />
-        <Footer />
-      </div>
-    </div> */}
   </div>
 );
 

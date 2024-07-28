@@ -7,7 +7,6 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useDeleteCardMutation, useGetSingleCardQuery } from "@/store/cards";
 
-import { verveLogo, mastercardLogo, visaLogo, sim } from "@/assets";
 import {
   CardContainer,
   CardBody,
@@ -87,7 +86,7 @@ const Hero = () => {
       </Button>
 
       <Flex
-      mt={12}
+        mt={12}
         w="100%"
         flexDirection={{ base: "column-reverse", lg: "row" }}
         justifyContent="space-around"
@@ -145,22 +144,22 @@ const Hero = () => {
           justifyContent="center"
           alignContent="center"
         >
-          <CardContainer className="bg-[url('./assets/bg.avif')] rounded-md">
+          <CardContainer className="bg-[url('/images/cardBg.webp')] rounded-md">
             <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
               <div className="w-full flex datas-end justify-end">
                 {data?.card?.provider === "Verve" && (
-                  <img src={verveLogo} className="w-20" />
+                  <img src="/images/verve.svg" className="w-20" />
                 )}
                 {data?.card?.provider === "MasterCard" && (
-                  <img src={mastercardLogo} className="w-12" />
+                  <img src="/images/mastercard.svg" className="w-12" />
                 )}
                 {data?.card?.provider === "Visa" && (
-                  <img src={visaLogo} className="w-14" />
+                  <img src="/images/visa.svg" className="w-14" />
                 )}
               </div>
               <CardItem as="p" className="max-w-sm">
                 <img
-                  src={sim}
+                  src='/images/mastercard_sim.png'
                   className="w-10 sm:w-12 border-2 border-sky-500 rounded-md"
                 />
               </CardItem>
@@ -250,6 +249,8 @@ const Hero = () => {
                     control={control}
                     render={({ field }) => (
                       <Input
+                        bg="white"
+                        color="black"
                         type="password"
                         {...field}
                         required

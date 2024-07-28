@@ -1,11 +1,10 @@
 import styles from "../../../style";
-import { hero } from "../../../assets";
 import { Image } from "@chakra-ui/react";
 
 const Hero = () => (
   <section
     id="home"
-    className={`flex md:flex-row flex-col gap-10 mt-32 ss:mt-0 ${styles.paddingY}`}
+    className={`flex md:flex-row flex-col gap-10 mt-6 ss:mt-0 ${styles.paddingY}`}
   >
     <div
       className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}
@@ -30,7 +29,11 @@ const Hero = () => (
     </div>
 
     <div className={`flex-1 flex ${styles.flexCenter} relative`}>
-      <Image src={hero} alt="billing" w={{ base: "250px", lg: "500px" }} />
+      <Image
+        src="/images/hero.webp"
+        alt="hero"
+        w={{ base: "250px", lg: "500px" }}
+      />
     </div>
   </section>
 );

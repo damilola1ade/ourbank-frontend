@@ -58,22 +58,22 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
 
   return (
     <>
-      <CardContainer className="bg-[url('./assets/bg.avif')] rounded-md">
+      <CardContainer className="bg-[url('/images/cardBg.webp')] rounded-md">
         <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
-              <img src={verveLogo} className="w-20" />
+              <img src="/images/verve.svg" className="w-20" />
             )}
             {item.provider === "MasterCard" && (
-              <img src={mastercardLogo} className="w-12" />
+              <img src="/images/mastercard.svg" className="w-12" />
             )}
             {item.provider === "Visa" && (
-              <img src={visaLogo} className="w-14" />
+              <img src="/images/visa.svg" className="w-14" />
             )}
           </div>
           <CardItem as="p" className="max-w-sm">
             <img
-              src={sim}
+              src="/images/mastercard_sim.png"
               className="w-10 sm:w-12 border-2 border-sky-500 rounded-md"
             />
           </CardItem>
@@ -141,8 +141,8 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
                   render={({ field }) => (
                     <InputGroup>
                       <Input
-                        color="white"
-                        id="password"
+                        bg="white"
+                        color="black"
                         type={show ? "text" : "password"}
                         {...field}
                         required
@@ -173,10 +173,10 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
               borderBottomRadius="md"
             >
               <Button
-              borderRadius="md"
-              bg="black"
-              _hover={{ bg: "gray.800" }}
-              color="white"
+                borderRadius="md"
+                bg="black"
+                _hover={{ bg: "gray.800" }}
+                color="white"
                 type="submit"
                 isLoading={isLoading}
                 isDisabled={isLoading}

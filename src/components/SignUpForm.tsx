@@ -96,7 +96,7 @@ export function SignUpForm() {
                     name="name"
                     control={control}
                     render={({ field }) => (
-                      <Input
+                      <Input bg='white' color='black' 
                         placeholder="Damilola Adegbemile"
                         type="text"
                         {...field}
@@ -115,7 +115,7 @@ export function SignUpForm() {
                     name="email"
                     control={control}
                     render={({ field }) => (
-                      <Input
+                      <Input bg='white' color='black' 
                         placeholder="damilola@gmail.com"
                         type="email"
                         {...field}
@@ -135,7 +135,7 @@ export function SignUpForm() {
                     control={control}
                     render={({ field }) => (
                       <InputGroup>
-                        <Input
+                        <Input bg='white' color='black' 
                           type={show ? "text" : "password"}
                           {...field}
                           required

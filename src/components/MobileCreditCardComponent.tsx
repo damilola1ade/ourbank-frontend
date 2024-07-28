@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { verveLogo, mastercardLogo, visaLogo, sim } from "../assets";
 import { CreditCardComponentProps, FormValues } from "@/types";
 
 import {
@@ -60,21 +59,29 @@ export const MobileCreditCardComponent = ({
 
   return (
     <>
-      <Box className="relative bg-[url('./assets/bg.avif')] rounded-md">
+      <Box
+        bgImage="/images/cardBg.webp"
+        bgSize="contain"
+        bgBlendMode="darken"
+        borderRadius="md"
+      >
         <Box className="bg-opacity-1 bg-blend-darken h-[160px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
-              <img src={verveLogo} className="w-14" />
+              <img src="/images/verve.svg" className="w-14" />
             )}
             {item.provider === "MasterCard" && (
-              <img src={mastercardLogo} className="w-8" />
+              <img src="/images/mastercard.svg" className="w-8" />
             )}
             {item.provider === "Visa" && (
-              <img src={visaLogo} className="w-10" />
+              <img src="/images/visa.svg" className="w-10" />
             )}
           </div>
           <Box as="p" className="max-w-sm">
-            <img src={sim} className="w-8 border-2 border-sky-500 rounded-md" />
+            <img
+              src="/images/mastercard_sim.png"
+              className="w-8 border-2 border-sky-500 rounded-md"
+            />
           </Box>
           <Box
             as="p"
@@ -132,8 +139,8 @@ export const MobileCreditCardComponent = ({
                   render={({ field }) => (
                     <InputGroup>
                       <Input
-                        color="white"
-                        id="password"
+                        bg="white"
+                        color="black"
                         type={show ? "text" : "password"}
                         {...field}
                         required
