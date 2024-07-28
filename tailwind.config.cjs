@@ -16,6 +16,9 @@ module.exports = {
   mode: "jit",
   theme: {
     extend: {
+      backgroundBlendMode: {
+        'overlay': 'overlay',
+      },
       boxShadow: {
         input: `0px 2px 3px -1px rgba(0,0,0,0.1), 0px 1px 0px 0px rgba(25,28,33,0.02), 0px 0px 0px 1px rgba(25,28,33,0.08)`,
       },
@@ -67,10 +70,19 @@ module.exports = {
   plugins: [addVariablesForColors, require("tailwindcss-animate")],
 };
 
-function addVariablesForColors({ addBase, theme }) {
+function addVariablesForColors({ addBase, theme, addUtilities }) {
   let allColors = flattenColorPalette(theme("colors"));
   let newVars = Object.fromEntries(
     Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+  addUtilities(
+    {
+      ".bg-blend-overlay": {
+        "background-blend-mode": "overlay",
+      },
+      // Add other blend modes if needed
+    },
+    ["responsive", "hover"]
   );
 
   addBase({

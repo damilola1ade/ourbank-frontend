@@ -7,7 +7,7 @@ import Card from "./pages/Card";
 
 const App = () => (
   <div className="font-poppins bg-[#00000f]">
-    <Toaster />
+    <Toaster expand={true} />
     <Cookie />
     <Routes>
       <Route path="/" element={<LandingPage />} />

@@ -57,13 +57,30 @@ export const MobileCreditCardComponent = ({
     }
   };
 
+  const getCardBgClass = (provider: string) => {
+    switch (provider) {
+      case "MasterCard":
+        return "bg-[url('/images/cardBg.webp')]";
+      case "Verve":
+        return "bg-red-900 bg-[url('/images/cardBg.webp')] bg-blend-overlay bg-cover bg-center";
+      case "Visa":
+        return "bg-orange-800 bg-[url('/images/cardBg.webp')] bg-blend-overlay bg-cover bg-center";
+      default:
+        return "bg-gray-200";
+    }
+  };
+
+  const cardClassName = `${getCardBgClass(item.provider)} relative rounded-md`;
+
   return (
     <>
       <Box
+        className={cardClassName}
         bgImage="/images/cardBg.webp"
         bgSize="contain"
         bgBlendMode="darken"
         borderRadius="md"
+        pos="relative"
       >
         <Box className="bg-opacity-1 bg-blend-darken h-[160px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
@@ -78,10 +95,7 @@ export const MobileCreditCardComponent = ({
             )}
           </div>
           <Box as="p" className="max-w-sm">
-            <img
-              src="/images/mastercard_sim.png"
-              className="w-8 border-2 border-sky-500 rounded-md"
-            />
+            <img src="/images/sim.png" className="w-8 rounded-md" />
           </Box>
           <Box
             as="p"
@@ -171,6 +185,10 @@ export const MobileCreditCardComponent = ({
               borderBottomRadius="md"
             >
               <Button
+                bg="black"
+                _hover={{ bg: "black" }}
+                color="white"
+                borderRadius="md"
                 type="submit"
                 isLoading={isLoading}
                 isDisabled={isLoading}

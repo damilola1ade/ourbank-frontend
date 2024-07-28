@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { CardBody, CardContainer, CardItem } from "./ui/tailwindcss-3dcard";
-import { verveLogo, mastercardLogo, visaLogo, sim } from "../assets";
 import { CreditCardComponentProps, FormValues } from "@/types";
 
 import {
@@ -56,9 +55,24 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
     }
   };
 
+  const getCardBgClass = (provider:string) => {
+    switch (provider) {
+      case "MasterCard":
+        return "bg-[url('/images/cardBg.webp')]";
+      case "Verve":
+        return "bg-red-900 bg-[url('/images/cardBg.webp')] bg-blend-overlay bg-cover bg-center";
+      case "Visa":
+        return "bg-orange-900 bg-[url('/images/cardBg.webp')] bg-blend-overlay bg-cover bg-center";
+      default:
+        return "bg-gray-200";
+    }
+  };
+
+  const cardClassName = `${getCardBgClass(item.provider)} relative rounded-md`;
+
   return (
     <>
-      <CardContainer className="bg-[url('/images/cardBg.webp')] rounded-md">
+      <CardContainer className={cardClassName}>
         <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
@@ -73,7 +87,7 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
           </div>
           <CardItem as="p" className="max-w-sm">
             <img
-              src="/images/mastercard_sim.png"
+              src="/images/sim.png"
               className="w-10 sm:w-12 border-2 border-sky-500 rounded-md"
             />
           </CardItem>

@@ -103,7 +103,7 @@ export function CreateCardForm() {
                     name="provider"
                     control={control}
                     render={({ field }) => (
-                      <Select id="provider" {...field}>
+                      <Select bg="white" color="black" {...field}>
                         <option value="MasterCard">MasterCard</option>
                         <option value="Verve">Verve</option>
                         <option value="Visa">Visa</option>

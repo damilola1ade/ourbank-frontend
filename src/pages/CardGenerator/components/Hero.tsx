@@ -9,11 +9,14 @@ import {
 } from "../../../components";
 import { useDeleteCardMutation, useGetAllCardsQuery } from "@/store/cards";
 import { Item } from "@/types";
+import { useGetUserDetails } from "@/hooks/useGetUserDetails";
 
 const Hero = () => {
   const { data } = useGetAllCardsQuery("");
 
   const [deleteCard, { isLoading, error }] = useDeleteCardMutation();
+
+  const { user } = useGetUserDetails();
 
   const handleDelete = async (cardId: { body: any; cardId: string }) => {
     try {
@@ -35,11 +38,11 @@ const Hero = () => {
     <div className="flex flex-col items-center justify-center gap-8 p-4 mt-12">
       <div className="text-center">
         <h1
-          className="flex-1 font-poppins font-semibold ss:text-[72px] text-[35px]
+          className="flex-1 font-poppins font-semibold ss:text-[72px] text-[28px]
           text-white ss:leading-[100px] leading-[50px]"
         >
-          Discover the Future <br className="sm:block hidden" /> {""}
-          <span className="text-gradient">of Virtual Cards</span> {""}
+          Welcome, <br className="sm:block hidden" /> {""}
+          <span className="text-gradient">{user?.name || ""}</span> 
         </h1>
       </div>
 
@@ -51,7 +54,7 @@ const Hero = () => {
       <SimpleGrid
         columns={[1, 1, 2]}
         spacing={12}
-        display={{ base: "none", md: "block" }}
+        display={{ base: "none", md: "flex" }}
       >
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent
