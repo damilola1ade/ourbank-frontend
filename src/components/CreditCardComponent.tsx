@@ -55,7 +55,7 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
     }
   };
 
-  const getCardBgClass = (provider:string) => {
+  const getCardBgClass = (provider: string) => {
     switch (provider) {
       case "MasterCard":
         return "bg-[url('/images/cardBg.webp')]";
@@ -73,22 +73,22 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
   return (
     <>
       <CardContainer className={cardClassName}>
-        <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
+        <CardBody className="bg-opacity-1 bg-blend-darken h-[180px] md:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
-              <img src="/images/verve.svg" className="w-20" />
+              <img src="/images/verve.svg" className="w-16 md:w-32" />
             )}
             {item.provider === "MasterCard" && (
-              <img src="/images/mastercard.svg" className="w-12" />
+              <img src="/images/mastercard.svg" className="w-10 md:w-20" />
             )}
             {item.provider === "Visa" && (
-              <img src="/images/visa.svg" className="w-14" />
+              <img src="/images/visa.svg" className="w-10 md:w-20" />
             )}
           </div>
           <CardItem as="p" className="max-w-sm">
             <img
               src="/images/sim.png"
-              className="w-10 sm:w-12 border-2 border-sky-500 rounded-md"
+              className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
             />
           </CardItem>
           <CardItem

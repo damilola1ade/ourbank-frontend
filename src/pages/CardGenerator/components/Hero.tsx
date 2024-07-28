@@ -5,7 +5,6 @@ import {
   CreditCardComponent,
   Error,
   Loader,
-  MobileCreditCardComponent,
 } from "../../../components";
 import { useDeleteCardMutation, useGetAllCardsQuery } from "@/store/cards";
 import { Item } from "@/types";
@@ -42,7 +41,7 @@ const Hero = () => {
           text-white ss:leading-[100px] leading-[50px]"
         >
           Welcome, <br className="sm:block hidden" /> {""}
-          <span className="text-gradient">{user?.name || ""}</span> 
+          <span className="text-gradient">{user?.name || ""}</span>
         </h1>
       </div>
 
@@ -50,29 +49,9 @@ const Hero = () => {
 
       {limitReached ? null : <CreateCardForm />}
 
-      {/*Large screen credit card component*/}
-      <SimpleGrid
-        columns={[1, 1, 2]}
-        spacing={12}
-        display={{ base: "none", md: "flex" }}
-      >
+      <SimpleGrid columns={[1, 1, 2]} spacing={{ base: 0, lg: 24 }}>
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent
-            key={item.id}
-            item={item}
-            handleDelete={() => handleDelete(item.id)}
-          />
-        ))}
-      </SimpleGrid>
-
-      {/*Mobile screen credit card component*/}
-      <SimpleGrid
-        columns={1}
-        spacing={8}
-        display={{ base: "grid", md: "none" }}
-      >
-        {data?.cards?.map((item: Item) => (
-          <MobileCreditCardComponent
             key={item.id}
             item={item}
             handleDelete={() => handleDelete(item.id)}

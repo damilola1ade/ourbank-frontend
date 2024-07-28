@@ -71,7 +71,7 @@ const Hero = () => {
     return <Loader />;
   }
 
-  const getCardBgClass = (provider:string) => {
+  const getCardBgClass = (provider: string) => {
     switch (provider) {
       case "MasterCard":
         return "bg-[url('/images/cardBg.webp')]";
@@ -84,7 +84,9 @@ const Hero = () => {
     }
   };
 
-  const cardClassName = `${getCardBgClass(data?.card?.provider)} relative rounded-md`;
+  const cardClassName = `${getCardBgClass(
+    data?.card?.provider
+  )} relative rounded-md`;
 
   return (
     <>
@@ -160,34 +162,34 @@ const Hero = () => {
           alignContent="center"
         >
           <CardContainer className={cardClassName}>
-            <CardBody className="bg-opacity-1 bg-blend-darken h-[200px] sm:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
-              <div className="w-full flex datas-end justify-end">
+            <CardBody className="bg-opacity-1 bg-blend-darken h-[180px] md:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
+              <div className="w-full flex items-end justify-end">
                 {data?.card?.provider === "Verve" && (
-                  <img src="/images/verve.svg" className="w-20" />
+                  <img src="/images/verve.svg" className="w-16 md:w-24" />
                 )}
                 {data?.card?.provider === "MasterCard" && (
-                  <img src="/images/mastercard.svg" className="w-12" />
+                  <img src="/images/mastercard.svg" className="w-10 md:w-16" />
                 )}
                 {data?.card?.provider === "Visa" && (
-                  <img src="/images/visa.svg" className="w-14" />
+                  <img src="/images/visa.svg" className="w-10 md:w-16" />
                 )}
               </div>
               <CardItem as="p" className="max-w-sm">
                 <img
-                  src='/images/sim.png'
-                  className="w-8 sm:w-12 border-2 border-sky-500 rounded-md"
+                  src="/images/sim.png"
+                  className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
                 />
               </CardItem>
               <CardItem
                 as="p"
-                className="w-full font-bold text-black text-xs lg:text-2xl mt-5"
+                className="w-full font-bold text-black text-xs lg:text-2xl mt-3"
                 style={{ letterSpacing: "0.6rem" }}
               >
                 {data?.card?.cardNumber}
               </CardItem>
               <CardItem
                 as="p"
-                className="mt-4 pr-4 w-full flex datas-end justify-end font-poppins text-black text-xs lg:text-lg"
+                className="mt-4 pr-4 w-full flex items-end justify-end font-poppins text-black text-xs lg:text-lg"
               >
                 {data?.card?.expiryDate}
               </CardItem>
