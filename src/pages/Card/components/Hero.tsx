@@ -133,7 +133,7 @@ const Hero = () => {
 
           <Flex w="100%" justifyContent="space-between">
             <Text fontWeight="bold">Card number</Text>
-            <Text>{data?.card?.cardNumber}</Text>
+            <Text>{useFormatCardNumber(data?.card?.cardNumber)}</Text>
           </Flex>
 
           <Divider />
@@ -164,7 +164,7 @@ const Hero = () => {
           flexDirection="column"
           justifyContent="center"
           alignContent="center"
-          gap={{ base: 4, lg: 24 }}
+          gap={{ base: 5, md: 12, lg: 12, xl: 20 }}
         >
           <div className="flip-card hidden lg:block">
             <div className="flip-card-inner">
@@ -223,7 +223,7 @@ const Hero = () => {
               <div className="flip-card-back">
                 <CardContainer className={cardClassName}>
                   <CardBody className="p-0 bg-opacity-1 bg-blend-darken h-full group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] transition-all duration-500">
-                    <div className="p-1 text-black text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
+                    <div className="p-1 text-slate-300 text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
                       {data?.card?.id}
                     </div>
                     <div className="bg-[#161414] p-6 w-full" />
@@ -268,8 +268,8 @@ const Hero = () => {
           <div className="flip-card block lg:hidden">
             <div className="flip-card-inner">
               <div className="flip-card-front">
-                <Box className={`${cardClassName} h-[187px]`}>
-                  <Box className="group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
+                <Box className={`${cardClassName}`}>
+                  <Box className="bg-opacity-1 bg-blend-darken group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
                     <div className="w-full flex items-end justify-end">
                       <div className="w-full flex items-end justify-end">
                         {data?.card?.provider === "Verve" && (
@@ -322,7 +322,7 @@ const Hero = () => {
               <div className="flip-card-back">
                 <Box className={cardClassName}>
                   <Box className="p-0 bg-opacity-1 bg-blend-darken h-full group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] transition-all duration-500">
-                    <div className="p-1 text-black text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
+                    <div className="p-1 text-slate-300 text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
                       {data?.card?.id}
                     </div>
                     <div className="bg-[#161414] p-6 w-full" />
@@ -354,7 +354,8 @@ const Hero = () => {
                           src="/images/logo.webp"
                           w={{ base: "50px", lg: "80px" }}
                           filter="brightness(0.8)"
-                          mixBlendMode="color-burn"
+                          opacity={0.8}
+                          mixBlendMode="initial"
                         />
                       </div>
                     </div>
