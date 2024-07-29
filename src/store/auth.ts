@@ -4,8 +4,8 @@ import { axiosInstance } from "../lib/axiosInstance";
 
 interface AuthResponse {
   [x: string]: string;
-  accessToken: string;
-  message: string;
+  accessToken?: string | any;
+  message?: string | any;
 }
 
 interface SignUpRequest {
@@ -45,12 +45,10 @@ const axiosBaseQuery =
     }
   };
 
-  
-
 export const authAPI = createApi({
   reducerPath: "authApi",
   baseQuery: axiosBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
-  tagTypes: ["User"], 
+  tagTypes: ["User"],
   endpoints: (builder) => ({
     signUp: builder.mutation<AuthResponse, SignUpRequest>({
       query: (body) => ({
@@ -71,10 +69,9 @@ export const authAPI = createApi({
     }),
 
     logOut: builder.mutation({
-      query: (body) => ({
+      query: () => ({
         url: "auth/logout",
         method: "POST",
-        data: body,
       }),
       invalidatesTags: ["User"],
     }),

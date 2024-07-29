@@ -41,7 +41,7 @@ const Hero = () => {
 
       {limitReached ? null : <CreateCardForm />}
 
-      <SimpleGrid columns={[1, 1, 2]} spacing={{ base: 0, lg: 24 }}>
+      <SimpleGrid columns={[1, 1, 2]} spacing={{ base: 4, lg: 24 }}>
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent key={item.id} item={item} />
         ))}

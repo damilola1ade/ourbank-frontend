@@ -32,6 +32,7 @@ import {
   FormLabel,
   Input,
   AlertDialogCloseButton,
+  Box,
 } from "@chakra-ui/react";
 
 import { toast } from "sonner";
@@ -100,7 +101,7 @@ const Hero = () => {
         to={"/card-generator"}
         leftIcon={<ArrowLeftIcon />}
         p={0}
-        mx={{ base: 8, lg: 12 }}
+        mx={{ base: 8, lg: 16 }}
       >
         Go back
       </Button>
@@ -109,13 +110,13 @@ const Hero = () => {
         mt={12}
         w="100%"
         flexDirection={{ base: "column-reverse", lg: "row" }}
-        justifyContent="space-around"
+        justifyContent="space-evenly"
         alignItems="center"
-        gap={12}
         color="white"
         fontSize={{ base: "sm", lg: "md" }}
+        gap={{ base: 12, lg: 2 }}
       >
-        <Stack w={{ base: "320px", lg: "600px" }} spacing={3}>
+        <Stack w={{ base: "320px", lg: "500px" }} spacing={3}>
           <Flex w="100%" justifyContent="space-between">
             <Text fontWeight="bold">Provider</Text>
             <Text>{data?.card?.provider}</Text>
@@ -163,9 +164,9 @@ const Hero = () => {
           flexDirection="column"
           justifyContent="center"
           alignContent="center"
-          gap={{ base: 12, lg: 24 }}
+          gap={{ base: 4, lg: 24 }}
         >
-          <div className="flip-card">
+          <div className="flip-card hidden lg:block">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <CardContainer className={cardClassName}>
@@ -260,6 +261,105 @@ const Hero = () => {
                     </div>
                   </CardBody>
                 </CardContainer>
+              </div>
+            </div>
+          </div>
+
+          <div className="flip-card block lg:hidden">
+            <div className="flip-card-inner">
+              <div className="flip-card-front">
+                <Box className={`${cardClassName} h-[187px]`}>
+                  <Box className="group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
+                    <div className="w-full flex items-end justify-end">
+                      <div className="w-full flex items-end justify-end">
+                        {data?.card?.provider === "Verve" && (
+                          <img
+                            src="/images/verve.svg"
+                            className="w-16 md:w-24"
+                          />
+                        )}
+                        {data?.card?.provider === "MasterCard" && (
+                          <img
+                            src="/images/mastercard.svg"
+                            className="w-10 md:w-16"
+                          />
+                        )}
+                        {data?.card?.provider === "Visa" && (
+                          <img
+                            src="/images/visa.svg"
+                            className="w-10 md:w-16"
+                          />
+                        )}
+                      </div>
+                    </div>
+                    <Box as="p" className="max-w-sm">
+                      <img
+                        src="/images/sim.png"
+                        className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
+                      />
+                    </Box>
+                    <Box
+                      as="p"
+                      className="w-full font-bold text-left text-black text-xl lg:text-3xl mt-3"
+                    >
+                      {useFormatCardNumber(data?.card?.cardNumber)}
+                    </Box>
+                    <Box
+                      as="p"
+                      className="mt-3 pr-4 w-full flex items-end justify-end font-poppins text-black font-bold text-md lg:text-xl"
+                    >
+                      {data?.card?.expiryDate}
+                    </Box>
+                    <div className="mt-2 w-full flex justify-between">
+                      <Box className="font-bold text-md lg:text-xl text-black">
+                        {data?.card?.cardName?.toUpperCase()}
+                      </Box>
+                    </div>
+                  </Box>
+                </Box>
+              </div>
+
+              <div className="flip-card-back">
+                <Box className={cardClassName}>
+                  <Box className="p-0 bg-opacity-1 bg-blend-darken h-full group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] transition-all duration-500">
+                    <div className="p-1 text-black text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
+                      {data?.card?.id}
+                    </div>
+                    <div className="bg-[#161414] p-6 w-full" />
+
+                    <div className="p-6">
+                      <Box
+                        as="p"
+                        className="bg-[url('/images/cardBg.webp bg-blend-overlay bg-contain bg-center bg-slate-200 p-1 rounded-md text-black w-full flex justify-center items-center tracking-widest"
+                      >
+                        {data?.card?.cvv}
+                      </Box>
+
+                      <div className="mt-2 flex justify-end items-end">
+                        <Box
+                          as="p"
+                          className="w-[250px] lg:w-[360px] text-left font-bold text-black text-[5px] lg:text-[10px] tracking-tighter leading-tight"
+                        >
+                          This virtual card is issued to you and valid for use
+                          in line with the agreement between the owner of this
+                          account and OurBank digital services. This card is
+                          valid for use at any online payment gateway and should
+                          only be used by the owner of this account in line
+                          OurBank terms and conditions.
+                        </Box>
+                      </div>
+
+                      <div className="mt-4 w-full flex justify-between">
+                        <Image
+                          src="/images/logo.webp"
+                          w={{ base: "50px", lg: "80px" }}
+                          filter="brightness(0.8)"
+                          mixBlendMode="color-burn"
+                        />
+                      </div>
+                    </div>
+                  </Box>
+                </Box>
               </div>
             </div>
           </div>

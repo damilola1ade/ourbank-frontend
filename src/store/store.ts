@@ -33,7 +33,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PERSIST, PURGE],
       },
-    }).concat(authAPI.middleware, cardAPI.middleware),
+    }).concat(authAPI.middleware, cardAPI.middleware), // Add cardAPI middleware here
 });
 
 export const persistor = persistStore(store);

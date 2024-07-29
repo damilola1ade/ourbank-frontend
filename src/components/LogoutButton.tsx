@@ -15,7 +15,7 @@ export const LogoutButton: React.FC = () => {
 
   const handleLogout = async () => {
     try {
-      await logOut('').unwrap();
+      await logOut(null).unwrap();
       dispatch(logout());
       navigate("/");
     } catch (error) {
