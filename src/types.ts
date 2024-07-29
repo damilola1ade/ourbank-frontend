@@ -21,6 +21,6 @@ export type Item = {
 
 export interface CreditCardComponentProps {
   item: Item;
-  handleDelete: () => void;
+  handleDelete?: () => void;
 }
 

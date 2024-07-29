@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useAppDispatch, useAppSelector } from "@/hooks/RTKHooks";
+import { setUser } from "@/slice/authSlice";
+import { useFormValidation } from "@/hooks/useFormValidation";
 import { useLoginMutation } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -24,8 +27,17 @@ import {
 } from "@chakra-ui/react";
 import { EyeIcon, EyeOff } from "lucide-react";
 
+import { ErrorText } from ".";
+
 export function SignInForm() {
-  const { handleSubmit, control } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const { emailValidation, authenticatePasswordValidation } =
+    useFormValidation();
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
@@ -36,18 +48,19 @@ export function SignInForm() {
 
   const navigate = useNavigate();
 
+  const dispatch = useAppDispatch();
+
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await login({
         email: data.email,
         password: data.password,
       }).unwrap();
-
-      if (response && response.accessToken) {
-        sessionStorage.setItem("accessToken", response.accessToken);
-        toast.success("Login successful!");
-        navigate("/card-generator");
-      }
+      dispatch(
+        setUser({ user: response.user, accessToken: response.accessToken })
+      );
+      navigate("/card-generator");
+      onClose();
     } catch (error) {
       const typedError = error as Error;
       toast.error(typedError.message);
@@ -86,56 +99,43 @@ export function SignInForm() {
                   <FormLabel htmlFor="email" color="white">
                     Email
                   </FormLabel>
-                  <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => (
-                      <Input bg='white' color='black' 
-                        placeholder="damilola@gmail.com"
-                        type="email"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
-                    )}
+                  <Input
+                    {...register("email", {
+                      ...emailValidation,
+                    })}
+                    bg="white"
+                    color="black"
+                    placeholder="damilola@gmail.com"
+                    height="50px"
+                    type="email"
                   />
+                  {errors.email && <ErrorText error={errors?.email?.message} />}
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="password" color="white">
                     Password
                   </FormLabel>
-                  <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                      <InputGroup>
-                        <Input bg='white' color='black' 
-                          id="password"
-                          type={show ? "text" : "password"}
-                          {...field}
-                          required
-                          aria-required="true"
-                        />
+                  <InputGroup>
+                    <Input
+                      {...register("password", {
+                        ...authenticatePasswordValidation,
+                      })}
+                      bg="white"
+                      color="black"
+                      type={show ? "text" : "password"}
+                      height="50px"
+                    />
 
-                        <InputRightElement width="4.5rem">
-                          <Button
-                            ml={6}
-                            bg="white"
-                            h="2.0rem"
-                            size="sm"
-                            onClick={handleShow}
-                          >
-                            {show ? (
-                              <Icon as={EyeIcon} />
-                            ) : (
-                              <Icon as={EyeOff} />
-                            )}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                    )}
-                  />
+                    <InputRightElement width="4.5rem">
+                      <Button mt={2} bg="white" size="sm" onClick={handleShow}>
+                        {show ? <Icon as={EyeIcon} /> : <Icon as={EyeOff} />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {errors.password && (
+                    <ErrorText error={errors?.password?.message} />
+                  )}
                 </FormControl>
               </VStack>
             </ModalBody>
@@ -150,7 +150,7 @@ export function SignInForm() {
                 borderRadius="md"
                 bg="black"
                 _hover={{ bg: "gray.800" }}
-                color='white'
+                color="white"
                 type="submit"
                 isLoading={isLoading}
                 isDisabled={isLoading}

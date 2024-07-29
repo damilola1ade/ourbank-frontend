@@ -2,15 +2,8 @@ import { createApi } from "@reduxjs/toolkit/query/react";
 import { AxiosError } from "axios";
 import { axiosInstance } from "../lib/axiosInstance";
 
-interface User {
-  id: number;
-  name: string;
-  email: string;
-  password: string;
-}
-
 interface AuthResponse {
-  user: User;
+  [x: string]: string;
   accessToken: string;
   message: string;
 }
@@ -26,10 +19,6 @@ interface SignInRequest {
   password: string;
 }
 
-interface LogoutRequest {
-  accessToken: string;
-}
-
 const axiosBaseQuery =
   ({ baseUrl }: { baseUrl: string }) =>
   async ({
@@ -37,8 +26,8 @@ const axiosBaseQuery =
     method,
     data,
   }: {
-    url: string;
-    method: string;
+    url?: string;
+    method?: string;
     data?: any;
   }) => {
     try {
@@ -59,8 +48,9 @@ const axiosBaseQuery =
   
 
 export const authAPI = createApi({
-  reducerPath: "auth",
+  reducerPath: "authApi",
   baseQuery: axiosBaseQuery({ baseUrl: import.meta.env.VITE_BASE_URL }),
+  tagTypes: ["User"], 
   endpoints: (builder) => ({
     signUp: builder.mutation<AuthResponse, SignUpRequest>({
       query: (body) => ({
@@ -68,6 +58,7 @@ export const authAPI = createApi({
         method: "POST",
         data: body,
       }),
+      invalidatesTags: ["User"],
     }),
 
     login: builder.mutation<AuthResponse, SignInRequest>({
@@ -76,17 +67,19 @@ export const authAPI = createApi({
         method: "POST",
         data: body,
       }),
+      invalidatesTags: ["User"],
     }),
 
-    logout: builder.mutation<void, LogoutRequest>({
+    logOut: builder.mutation({
       query: (body) => ({
         url: "auth/logout",
         method: "POST",
         data: body,
       }),
+      invalidatesTags: ["User"],
     }),
   }),
 });
 
-export const { useSignUpMutation, useLoginMutation, useLogoutMutation } =
+export const { useSignUpMutation, useLoginMutation, useLogOutMutation } =
   authAPI;

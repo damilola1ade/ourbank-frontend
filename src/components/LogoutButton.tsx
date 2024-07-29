@@ -1,28 +1,35 @@
 import React from "react";
-import { useLogoutMutation } from "../store/auth";
+import { useLogOutMutation } from "../store/auth";
+import { useAppDispatch } from "@/hooks/RTKHooks";
+import { logout } from "@/slice/authSlice";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@chakra-ui/react";
+import { toast } from "sonner";
 
 export const LogoutButton: React.FC = () => {
-  const [logout] = useLogoutMutation();
+  const [logOut, { isLoading }] = useLogOutMutation();
+
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
-      const accessToken = sessionStorage.getItem("accessToken");
-      if (accessToken) {
-        await logout({ accessToken }).unwrap();
-        sessionStorage.removeItem("accessToken");
-        navigate("/");
-      }
+      await logOut().unwrap();
+      dispatch(logout());
+      navigate("/");
     } catch (error) {
-      console.error("Logout failed:", error);
+      const typedError = error as Error;
+      toast.error(typedError.message);
     }
   };
 
   return (
-    <Button onClick={handleLogout} size={{ base: "sm", lg: "lg" }}>
+    <Button
+      onClick={handleLogout}
+      isLoading={isLoading}
+      size={{ base: "sm", lg: "lg" }}
+    >
       Logout
     </Button>
   );

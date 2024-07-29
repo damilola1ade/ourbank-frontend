@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { useAppDispatch } from "@/hooks/RTKHooks";
+import { setUser } from "@/slice/authSlice";
 import { useSignUpMutation } from "../store/auth";
 import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
@@ -23,6 +26,8 @@ import {
 } from "@chakra-ui/react";
 import { EyeIcon, EyeOff } from "lucide-react";
 
+import { ErrorText } from ".";
+
 interface FormValues {
   name: string;
   email: string;
@@ -30,10 +35,19 @@ interface FormValues {
 }
 
 export function SignUpForm() {
-  const { handleSubmit, control } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const { nameValidation, emailValidation, signUpPasswordValidation } =
+    useFormValidation();
 
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
+
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
@@ -44,16 +58,15 @@ export function SignUpForm() {
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await signUp({
-        name: data.name,
+        name: data.email,
         email: data.email,
         password: data.password,
       }).unwrap();
-
-      if (response && response.accessToken) {
-        sessionStorage.setItem("accessToken", response.accessToken);
-        toast.success("Registration successful!");
-        navigate("/card-generator");
-      }
+      dispatch(
+        setUser({ user: response.user, accessToken: response.accessToken })
+      );
+      navigate("/card-generator");
+      onClose();
     } catch (error) {
       const typedError = error as Error;
       toast.error(typedError.message);
@@ -84,7 +97,7 @@ export function SignUpForm() {
             borderColor="white"
             borderRadius="lg"
           >
-            <ModalHeader color="white">Sign in to your account</ModalHeader>
+            <ModalHeader color="white">Register an account</ModalHeader>
             <ModalCloseButton color="white" />
             <ModalBody>
               <VStack spacing={4} mb={4}>
@@ -92,74 +105,60 @@ export function SignUpForm() {
                   <FormLabel htmlFor="name" color="white">
                     Full name
                   </FormLabel>
-                  <Controller
-                    name="name"
-                    control={control}
-                    render={({ field }) => (
-                      <Input bg='white' color='black' 
-                        placeholder="Damilola Adegbemile"
-                        type="text"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
-                    )}
+                  <Input
+                    {...register("name", {
+                      ...nameValidation,
+                    })}
+                    bg="white"
+                    color="black"
+                    placeholder="Damilola Adegbemile"
+                    height="50px"
+                    type="text"
                   />
+                  {errors.name && <ErrorText error={errors?.name?.message} />}
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="email" color="white">
                     Email
                   </FormLabel>
-                  <Controller
-                    name="email"
-                    control={control}
-                    render={({ field }) => (
-                      <Input bg='white' color='black' 
-                        placeholder="damilola@gmail.com"
-                        type="email"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
-                    )}
+                  <Input
+                    {...register("email", {
+                      ...emailValidation,
+                    })}
+                    bg="white"
+                    color="black"
+                    placeholder="damilola@gmail.com"
+                    height="50px"
+                    type="email"
                   />
+                  {errors.email && <ErrorText error={errors?.email?.message} />}
                 </FormControl>
 
                 <FormControl>
                   <FormLabel htmlFor="password" color="white">
                     Password
                   </FormLabel>
-                  <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                      <InputGroup>
-                        <Input bg='white' color='black' 
-                          type={show ? "text" : "password"}
-                          {...field}
-                          required
-                          aria-required="true"
-                        />
+                  <InputGroup>
+                    <Input
+                      {...register("password", {
+                        ...signUpPasswordValidation,
+                      })}
+                      bg="white"
+                      color="black"
+                      type={show ? "text" : "password"}
+                      height="50px"
+                    />
 
-                        <InputRightElement width="4.5rem">
-                          <Button
-                            ml={6}
-                            bg="white"
-                            h="2.0rem"
-                            size="sm"
-                            onClick={handleShow}
-                          >
-                            {show ? (
-                              <Icon as={EyeIcon} />
-                            ) : (
-                              <Icon as={EyeOff} />
-                            )}
-                          </Button>
-                        </InputRightElement>
-                      </InputGroup>
-                    )}
-                  />
+                    <InputRightElement width="4.5rem">
+                      <Button mt={2} bg="white" size="sm" onClick={handleShow}>
+                        {show ? <Icon as={EyeIcon} /> : <Icon as={EyeOff} />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                  {errors.password && (
+                    <ErrorText error={errors?.password?.message} />
+                  )}
                 </FormControl>
               </VStack>
             </ModalBody>

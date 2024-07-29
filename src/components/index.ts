@@ -1,5 +1,6 @@
+import { Navbar } from "./Navbar";
 import { CreditCardComponent } from "./CreditCardComponent";
-import { MobileCreditCardComponent } from './MobileCreditCardComponent';
+import { MobileCreditCardComponent } from "./MobileCreditCardComponent";
 import { CreateCardForm } from "./CreateCardForm";
 import { SignUpForm } from "./SignUpForm";
 import { SignInForm } from "./SignInForm";
@@ -10,8 +11,10 @@ import { Cookie } from "./Cookie";
 import { Button } from "./Button";
 import { Modal } from "./Modal";
 import { TransactionsTable } from "./TransactionsTable";
+import { ErrorText } from "./ErrorText";
 
 export {
+  Navbar,
   CreditCardComponent,
   MobileCreditCardComponent,
   CreateCardForm,
@@ -23,5 +26,6 @@ export {
   Cookie,
   Button,
   Modal,
-  TransactionsTable
+  TransactionsTable,
+  ErrorText,
 };

@@ -16,21 +16,31 @@ import {
   Icon,
   InputGroup,
   InputRightElement,
+  FormControl,
 } from "@chakra-ui/react";
 
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { useRevealCardMutation } from "@/store/cards";
 import { useNavigate } from "react-router-dom";
 import { EyeIcon, EyeOff } from "lucide-react";
 
+import { useFormValidation } from "@/hooks/useFormValidation";
+import { ErrorText } from "./ErrorText";
+
 export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const { authenticatePasswordValidation } = useFormValidation();
+
   const [show, setShow] = useState(false);
   const handleShow = () => setShow(!show);
-
-  const { handleSubmit, control, reset } = useForm<FormValues>();
 
   const navigate = useNavigate();
 
@@ -45,7 +55,6 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
 
       if (response) {
         toast.success("Authentication approved");
-        reset();
         onClose();
         navigate(`/card/${item.id}`);
       }
@@ -68,7 +77,9 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
     }
   };
 
-  const cardClassName = `${getCardBgClass(item.provider)} relative rounded-md`;
+  const cardClassName = `${getCardBgClass(
+    item.provider
+  )} relative rounded-md cursor-pointer`;
 
   return (
     <>
@@ -145,39 +156,31 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
           <form onSubmit={handleSubmit(onSubmit)} noValidate>
             <ModalCloseButton color="white" />
             <ModalBody p={8}>
-              <>
+              <FormControl>
                 <FormLabel htmlFor="password" color="white">
                   Password
                 </FormLabel>
-                <Controller
-                  name="password"
-                  control={control}
-                  render={({ field }) => (
-                    <InputGroup>
-                      <Input
-                        bg="white"
-                        color="black"
-                        type={show ? "text" : "password"}
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
+                <InputGroup>
+                  <Input
+                    {...register("password", {
+                      ...authenticatePasswordValidation,
+                    })}
+                    bg="white"
+                    color="black"
+                    type={show ? "text" : "password"}
+                    height="50px"
+                  />
 
-                      <InputRightElement width="4.5rem">
-                        <Button
-                          ml={6}
-                          bg="white"
-                          h="2.0rem"
-                          size="sm"
-                          onClick={handleShow}
-                        >
-                          {show ? <Icon as={EyeIcon} /> : <Icon as={EyeOff} />}
-                        </Button>
-                      </InputRightElement>
-                    </InputGroup>
-                  )}
-                />
-              </>
+                  <InputRightElement width="4.5rem">
+                    <Button mt={2} bg="white" size="sm" onClick={handleShow}>
+                      {show ? <Icon as={EyeIcon} /> : <Icon as={EyeOff} />}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {errors.password && (
+                  <ErrorText error={errors?.password?.message} />
+                )}
+              </FormControl>
             </ModalBody>
 
             <ModalFooter

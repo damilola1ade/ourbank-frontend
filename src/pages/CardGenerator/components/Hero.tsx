@@ -1,34 +1,26 @@
-import { toast } from "sonner";
 import { SimpleGrid } from "@chakra-ui/react";
+import { useGetAllCardsQuery } from "@/store/cards";
+
+import { useAppSelector } from "@/hooks/RTKHooks";
+
 import {
   CreateCardForm,
   CreditCardComponent,
-  Error,
   Loader,
-} from "../../../components";
-import { useDeleteCardMutation, useGetAllCardsQuery } from "@/store/cards";
+  Error,
+} from "@/components";
+
 import { Item } from "@/types";
-import { useGetUserDetails } from "@/hooks/useGetUserDetails";
 
 const Hero = () => {
-  const { data } = useGetAllCardsQuery("");
+  const { user } = useAppSelector((state) => state.auth);
 
-  const [deleteCard, { isLoading, error }] = useDeleteCardMutation();
-
-  const { user } = useGetUserDetails();
-
-  const handleDelete = async (cardId: { body: any; cardId: string }) => {
-    try {
-      await deleteCard(cardId).unwrap();
-      toast.success("Card deleted");
-    } catch (error) {}
-  };
+  const { data, isLoading, error } = useGetAllCardsQuery(
+    {},
+    { refetchOnMountOrArgChange: true }
+  );
 
   const limitReached = data?.cards?.length === 2;
-
-  if (limitReached) {
-    toast.info("Maximum number of cards created");
-  }
 
   if (isLoading) return <Loader />;
   if (error) return <Error />;
@@ -41,7 +33,7 @@ const Hero = () => {
           text-white ss:leading-[100px] leading-[50px]"
         >
           Welcome, <br className="sm:block hidden" /> {""}
-          <span className="text-gradient">{user?.name || ""}</span>
+          <span className="text-gradient">{user?.name}</span>
         </h1>
       </div>
 
@@ -51,11 +43,7 @@ const Hero = () => {
 
       <SimpleGrid columns={[1, 1, 2]} spacing={{ base: 0, lg: 24 }}>
         {data?.cards?.map((item: Item) => (
-          <CreditCardComponent
-            key={item.id}
-            item={item}
-            handleDelete={() => handleDelete(item.id)}
-          />
+          <CreditCardComponent key={item.id} item={item} />
         ))}
       </SimpleGrid>
     </div>

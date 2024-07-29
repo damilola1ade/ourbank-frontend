@@ -1,7 +1,13 @@
 import { useEffect } from "react";
-import { SignInForm, SignUpForm } from "../../../components";
+import { SignInForm } from "./SignInForm";
+import { SignUpForm } from "./SignUpForm";
+import styles from "@/style";
+import { LogoutButton } from "./LogoutButton";
+import { useAppSelector } from "@/hooks/RTKHooks";
 
-const Navbar = () => {
+export const Navbar = () => {
+  const { user } = useAppSelector((store) => store.auth);
+
   useEffect(() => {
     // Function to send a ping request
     const sendPing = () => {
@@ -34,16 +40,27 @@ const Navbar = () => {
   }, []); // Empty dependency array ensures this runs only once
 
   return (
-    <nav className="w-full flex py-6 justify-between items-center navbar">
-      <img src="/images/logo.webp" alt="ourbank" className="w-[120px] h-[32px]" />
+    <div className={`${styles.paddingX} ${styles.flexCenter}`}>
+      <div className={`${styles.boxWidth}`}>
+        <nav className="w-full flex py-6 justify-between items-center navbar">
+          <img
+            src="/images/logo.webp"
+            alt="ourbank"
+            className="w-[120px] h-[32px]"
+          />
 
-      <div className="flex flex-row gap-4">
-        <SignInForm />
+          <div className="flex flex-row gap-4">
+            {user && <LogoutButton />}
 
-        <SignUpForm />
+            {!user && (
+              <>
+                <SignInForm />
+                <SignUpForm />
+              </>
+            )}
+          </div>
+        </nav>
       </div>
-    </nav>
+    </div>
   );
 };
-
-export default Navbar;

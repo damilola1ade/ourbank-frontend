@@ -7,6 +7,8 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { useDeleteCardMutation, useGetSingleCardQuery } from "@/store/cards";
 
+import { useFormatCardNumber } from "@/hooks/useFormatCardNumber";
+
 import {
   CardContainer,
   CardBody,
@@ -182,31 +184,22 @@ const Hero = () => {
               </CardItem>
               <CardItem
                 as="p"
-                className="w-full font-bold text-black text-xs lg:text-2xl mt-3"
-                style={{ letterSpacing: "0.6rem" }}
+                className="w-full font-bold text-black text-xl lg:text-3xl mt-3"
               >
-                {data?.card?.cardNumber}
+                {useFormatCardNumber(data?.card?.cardNumber)}
               </CardItem>
               <CardItem
                 as="p"
-                className="mt-4 pr-4 w-full flex items-end justify-end font-poppins text-black text-xs lg:text-lg"
+                className="mt-3 pr-4 w-full flex items-end justify-end font-poppins text-black font-bold text-md lg:text-xl"
               >
                 {data?.card?.expiryDate}
               </CardItem>
-              <div className="mt-4 w-full flex justify-between">
-                <CardItem
-                  href="https://twitter.com/mannupaaji"
-                  target="__blank"
-                  className="font-bold text-xs lg:text-lg text-black tracking-wide"
-                >
+              <div className="mt-2 w-full flex justify-between">
+                <CardItem className="font-bold text-md lg:text-xl text-black">
                   {data?.card?.cardName?.toUpperCase()}
                 </CardItem>
 
-                <CardItem
-                  href="https://twitter.com/mannupaaji"
-                  target="__blank"
-                  className="pr-4 font-bold text-xs lg:text-lg text-black tracking-wide"
-                >
+                <CardItem className="pr-4 font-bold text-md lg:text-xl text-black ">
                   {data?.card?.cvv}
                 </CardItem>
               </div>

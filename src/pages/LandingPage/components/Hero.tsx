@@ -32,7 +32,7 @@ const Hero = () => (
       <Image
         src="/images/hero.webp"
         alt="hero"
-        w={{ base: "250px", lg: "500px" }}
+        w={{ base: "320px", lg: "500px" }}
       />
     </div>
   </section>

@@ -56,7 +56,6 @@ export const cardAPI = createApi({
         method: "POST",
         data: body,
       }),
-      invalidatesTags: ["Card"],
     }),
 
     getSingleCard: builder.query({
@@ -64,7 +63,6 @@ export const cardAPI = createApi({
         url: `card/get-card/${cardId}`,
         method: "GET",
       }),
-      providesTags: ["Card"],
     }),
 
     deleteCard: builder.mutation({
@@ -73,7 +71,6 @@ export const cardAPI = createApi({
         method: "DELETE",
         data: body,
       }),
-      invalidatesTags: ["Card"],
     }),
   }),
 });
