@@ -160,7 +160,7 @@ const Hero = () => {
           alignContent="center"
           gap={{ base: 0, lg: 4 }}
         >
-          <div className="flip-card h-64 w-80 lg:w-[28rem]">
+          <div className="flip-card h-64 w-[22rem] lg:w-[28rem]">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <Box className={`${cardClassName} h-52 lg:h-60`}>
