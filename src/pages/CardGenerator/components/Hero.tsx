@@ -8,6 +8,7 @@ import {
   CreditCardComponent,
   Loader,
   Error,
+  AlertModal,
 } from "@/components";
 
 import { Item } from "@/types";
@@ -41,11 +42,13 @@ const Hero = () => {
 
       {limitReached ? null : <CreateCardForm />}
 
-      <SimpleGrid columns={[1, 1, 2]} spacing={{ base: 4, lg: 24 }}>
+      <SimpleGrid display='flex' columns={[1, 1, 2]} spacing={{ base: 4, lg: 24 }}>
         {data?.cards?.map((item: Item) => (
           <CreditCardComponent key={item.id} item={item} />
         ))}
       </SimpleGrid>
+
+      {data?.cards?.length > 0 && <AlertModal />}
     </div>
   );
 };

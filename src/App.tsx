@@ -8,7 +8,7 @@ import { ProtectedRoute } from "./utils/ProtectedRoute";
 
 const App = () => (
   <div className="font-poppins bg-[#00000f]">
-    <Toaster expand={true} position="top-right" />
+    <Toaster expand={true} />
     <Navbar />
     <Cookie />
     <Routes>

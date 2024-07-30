@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import { useFormValidation } from "@/hooks/useFormValidation";
 import { FormValues } from "@/types";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -24,19 +25,33 @@ import {
   Divider,
   FormLabel,
   Input,
+  Icon as ChakraIcon,
   AlertDialogCloseButton,
   Box,
+  FormControl,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
 
 import { toast } from "sonner";
-import { Loader, TransactionsTable } from "@/components";
-import { ArrowLeftIcon } from "lucide-react";
+import { ErrorText, Loader, TransactionsTable } from "@/components";
+import { ArrowLeftIcon, EyeIcon, EyeOff } from "lucide-react";
 import { Icon } from "@/components/assets/Icon";
+import moment from "moment";
 
 const Hero = () => {
   const { cardId }: any = useParams();
 
-  const { handleSubmit, control } = useForm<FormValues>();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
+
+  const { authenticatePasswordValidation } = useFormValidation();
+
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(!show);
 
   const cancelRef = useRef(null);
 
@@ -147,8 +162,8 @@ const Hero = () => {
           <Divider />
 
           <Flex w="100%" justifyContent="space-between">
-            <Text fontWeight="bold">Created on</Text>
-            <Text>{data?.card?.createdAt}</Text>
+            <Text fontWeight="bold">Date created</Text>
+            <Text>{moment(data?.card?.createdAt).format('lll')}</Text>
           </Flex>
 
           <Divider />
@@ -300,25 +315,35 @@ const Hero = () => {
               <AlertDialogCloseButton color="white" />
 
               <AlertDialogBody pb={6}>
-                <>
-                  <FormLabel htmlFor="password" color="white">
-                    Password
-                  </FormLabel>
-                  <Controller
-                    name="password"
-                    control={control}
-                    render={({ field }) => (
-                      <Input
-                        bg="white"
-                        color="black"
-                        type="password"
-                        {...field}
-                        required
-                        aria-required="true"
-                      />
-                    )}
+              <FormControl>
+                <FormLabel htmlFor="password" color="white">
+                  Password
+                </FormLabel>
+                <InputGroup>
+                  <Input
+                    {...register("password", {
+                      ...authenticatePasswordValidation,
+                    })}
+                    bg="white"
+                    color="black"
+                    type={show ? "text" : "password"}
+                    height="50px"
                   />
-                </>
+
+                  <InputRightElement width="4.5rem">
+                    <Button mt={2} bg="white" size="sm" onClick={handleShow}>
+                      {show ? (
+                        <ChakraIcon as={EyeIcon} />
+                      ) : (
+                        <ChakraIcon as={EyeOff} />
+                      )}
+                    </Button>
+                  </InputRightElement>
+                </InputGroup>
+                {errors.password && (
+                  <ErrorText error={errors?.password?.message} />
+                )}
+              </FormControl>
               </AlertDialogBody>
 
               <AlertDialogFooter
