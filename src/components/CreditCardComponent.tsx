@@ -13,7 +13,7 @@ import {
   FormLabel,
   Input,
   ModalFooter,
-  Icon,
+  Icon as ChakraIcon,
   InputGroup,
   InputRightElement,
   FormControl,
@@ -27,6 +27,7 @@ import { EyeIcon, EyeOff } from "lucide-react";
 
 import { useFormValidation } from "@/hooks/useFormValidation";
 import { ErrorText } from "./ErrorText";
+import { Icon } from "./assets/Icon";
 
 export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -83,28 +84,25 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
 
   return (
     <>
-      <CardContainer className={cardClassName}>
+      <CardContainer className={cardClassName} onClick={onOpen}>
         <CardBody className="bg-opacity-1 bg-blend-darken h-[180px] md:h-[250px] group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
           <div className="w-full flex items-end justify-end">
             {item.provider === "Verve" && (
-              <img src="/images/verve.svg" className="w-16 md:w-32" />
+              <Icon name="verve" className="w-32 h-8 pl-10 md:w-32" />
             )}
             {item.provider === "MasterCard" && (
-              <img src="/images/mastercard.svg" className="w-10 md:w-20" />
+              <Icon name="mastercard" className="w-32 h-10 pl-16 md:w-32" />
             )}
             {item.provider === "Visa" && (
-              <img src="/images/visa.svg" className="w-10 md:w-20" />
+              <Icon name="visa" className="w-72 h-10 pl-56 md:w-52 md:h-12 md:pl-32" />
             )}
           </div>
           <CardItem as="p" className="max-w-sm">
-            <img
-              src="/images/sim.png"
-              className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
-            />
+            <Icon name="sim" className="w-8 h-8 md:w-12 rounded-md" />
           </CardItem>
           <CardItem
             as="p"
-            className="w-full font-bold text-black text-xs lg:text-2xl mt-5"
+            className="w-full font-bold text-black text-xs lg:text-2xl mt-4"
             style={{ letterSpacing: "0.6rem" }}
           >
             **** **** **** ****
@@ -115,31 +113,13 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
           >
             {item.expiryDate}
           </CardItem>
-          <div className="mt-4 w-full flex justify-between">
+          <div className="mt-3 w-full flex justify-between">
             <CardItem
-              href="https://twitter.com/mannupaaji"
               target="__blank"
               className="font-bold text-xs lg:text-lg text-black tracking-wide"
             >
               {item.cardName?.toUpperCase()}
             </CardItem>
-
-            <CardItem
-              href="https://twitter.com/mannupaaji"
-              target="__blank"
-              className="pr-4 font-bold text-xs lg:text-lg text-black tracking-wide"
-            >
-              ***
-            </CardItem>
-          </div>
-
-          <div className="absolute inset-0 flex flex-col gap-2 items-center justify-center bg-black bg-opacity-0 text-white opacity-0 group-hover:bg-opacity-50 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none group-hover:pointer-events-auto">
-            <button
-              className="bg-blue-gradient px-4 py-2 rounded-lg"
-              onClick={onOpen}
-            >
-              Reveal card
-            </button>
           </div>
         </CardBody>
       </CardContainer>
@@ -173,7 +153,11 @@ export const CreditCardComponent = ({ item }: CreditCardComponentProps) => {
 
                   <InputRightElement width="4.5rem">
                     <Button mt={2} bg="white" size="sm" onClick={handleShow}>
-                      {show ? <Icon as={EyeIcon} /> : <Icon as={EyeOff} />}
+                      {show ? (
+                        <ChakraIcon as={EyeIcon} />
+                      ) : (
+                        <ChakraIcon as={EyeOff} />
+                      )}
                     </Button>
                   </InputRightElement>
                 </InputGroup>

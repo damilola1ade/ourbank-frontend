@@ -4,6 +4,7 @@ import { SignUpForm } from "./SignUpForm";
 import styles from "@/style";
 import { LogoutButton } from "./LogoutButton";
 import { useAppSelector } from "@/hooks/RTKHooks";
+import { Icon } from "./assets/Icon";
 
 export const Navbar = () => {
   const { user } = useAppSelector((store) => store.auth);
@@ -43,11 +44,7 @@ export const Navbar = () => {
     <div className={`${styles.paddingX} ${styles.flexCenter}`}>
       <div className={`${styles.boxWidth}`}>
         <nav className="w-full flex py-6 justify-between items-center navbar">
-          <img
-            src="/images/logo.webp"
-            alt="ourbank"
-            className="w-[120px] h-[32px]"
-          />
+          <Icon name='logo' className="w-32 h-12" />
 
           <div className="flex flex-row gap-4">
             {user && <LogoutButton />}

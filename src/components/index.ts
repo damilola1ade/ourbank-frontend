@@ -9,7 +9,6 @@ import { Loader } from "./Loader";
 import { Error } from "./Error";
 import { Cookie } from "./Cookie";
 import { Button } from "./Button";
-import { Modal } from "./Modal";
 import { TransactionsTable } from "./TransactionsTable";
 import { ErrorText } from "./ErrorText";
 
@@ -25,7 +24,6 @@ export {
   Error,
   Cookie,
   Button,
-  Modal,
   TransactionsTable,
   ErrorText,
 };

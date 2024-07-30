@@ -10,12 +10,6 @@ import { useDeleteCardMutation, useGetSingleCardQuery } from "@/store/cards";
 import { useFormatCardNumber } from "@/hooks/useFormatCardNumber";
 
 import {
-  CardContainer,
-  CardBody,
-  CardItem,
-} from "@/components/ui/tailwindcss-3dcard";
-
-import {
   Button,
   Flex,
   AlertDialog,
@@ -26,7 +20,6 @@ import {
   AlertDialogOverlay,
   useDisclosure,
   Stack,
-  Image,
   Text,
   Divider,
   FormLabel,
@@ -38,6 +31,7 @@ import {
 import { toast } from "sonner";
 import { Loader, TransactionsTable } from "@/components";
 import { ArrowLeftIcon } from "lucide-react";
+import { Icon } from "@/components/assets/Icon";
 
 const Hero = () => {
   const { cardId }: any = useParams();
@@ -164,108 +158,9 @@ const Hero = () => {
           flexDirection="column"
           justifyContent="center"
           alignContent="center"
-          gap={{ base: 5, md: 12, lg: 12, xl: 20 }}
+          gap={{ base: 0, lg: 4 }}
         >
-          <div className="flip-card hidden lg:block">
-            <div className="flip-card-inner">
-              <div className="flip-card-front">
-                <CardContainer className={cardClassName}>
-                  <CardBody className="bg-opacity-1 bg-blend-darken h-full group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
-                    <div className="w-full flex items-end justify-end">
-                      <div className="w-full flex items-end justify-end">
-                        {data?.card?.provider === "Verve" && (
-                          <img
-                            src="/images/verve.svg"
-                            className="w-16 md:w-24"
-                          />
-                        )}
-                        {data?.card?.provider === "MasterCard" && (
-                          <img
-                            src="/images/mastercard.svg"
-                            className="w-10 md:w-16"
-                          />
-                        )}
-                        {data?.card?.provider === "Visa" && (
-                          <img
-                            src="/images/visa.svg"
-                            className="w-10 md:w-16"
-                          />
-                        )}
-                      </div>
-                    </div>
-                    <CardItem as="p" className="max-w-sm">
-                      <img
-                        src="/images/sim.png"
-                        className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
-                      />
-                    </CardItem>
-                    <CardItem
-                      as="p"
-                      className="w-full font-bold text-left text-black text-xl lg:text-3xl mt-3"
-                    >
-                      {useFormatCardNumber(data?.card?.cardNumber)}
-                    </CardItem>
-                    <CardItem
-                      as="p"
-                      className="mt-3 pr-4 w-full flex items-end justify-end font-poppins text-black font-bold text-md lg:text-xl"
-                    >
-                      {data?.card?.expiryDate}
-                    </CardItem>
-                    <div className="mt-2 w-full flex justify-between">
-                      <CardItem className="font-bold text-md lg:text-xl text-black">
-                        {data?.card?.cardName?.toUpperCase()}
-                      </CardItem>
-                    </div>
-                  </CardBody>
-                </CardContainer>
-              </div>
-
-              <div className="flip-card-back">
-                <CardContainer className={cardClassName}>
-                  <CardBody className="p-0 bg-opacity-1 bg-blend-darken h-full group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] transition-all duration-500">
-                    <div className="p-1 text-slate-300 text-[5px] lg:text-[10px] tracking-tighter leading-tight text-right">
-                      {data?.card?.id}
-                    </div>
-                    <div className="bg-[#161414] p-6 w-full" />
-
-                    <div className="p-6">
-                      <CardItem
-                        as="p"
-                        className="bg-[url('/images/cardBg.webp bg-blend-overlay bg-contain bg-center bg-slate-200 p-1 rounded-md text-black w-full flex justify-center items-center tracking-widest"
-                      >
-                        {data?.card?.cvv}
-                      </CardItem>
-
-                      <div className="mt-2 flex justify-end items-end">
-                        <CardItem
-                          as="p"
-                          className="w-[250px] lg:w-[360px] text-left font-bold text-black text-[5px] lg:text-[10px] tracking-tighter leading-tight"
-                        >
-                          This virtual card is issued to you and valid for use
-                          in line with the agreement between the owner of this
-                          account and OurBank digital services. This card is
-                          valid for use at any online payment gateway and should
-                          only be used by the owner of this account in line
-                          OurBank terms and conditions.
-                        </CardItem>
-                      </div>
-
-                      <div className="mt-4 w-full flex justify-between">
-                        <Image
-                          src="/images/logo.webp"
-                          w={{ base: "50px", lg: "80px" }}
-                          filter="brightness(0.8)"
-                          mixBlendMode="color-burn"
-                        />
-                      </div>
-                    </div>
-                  </CardBody>
-                </CardContainer>
-              </div>
-            </div>
-          </div>
-
-          <div className="flip-card block lg:hidden">
+          <div className="flip-card h-64 w-80 lg:w-[28rem]">
             <div className="flip-card-inner">
               <div className="flip-card-front">
                 <Box className={`${cardClassName}`}>
@@ -273,30 +168,27 @@ const Hero = () => {
                     <div className="w-full flex items-end justify-end">
                       <div className="w-full flex items-end justify-end">
                         {data?.card?.provider === "Verve" && (
-                          <img
-                            src="/images/verve.svg"
-                            className="w-16 md:w-24"
+                          <Icon
+                            name="verve"
+                            className="w-32 h-8 pl-10 md:w-32"
                           />
                         )}
                         {data?.card?.provider === "MasterCard" && (
-                          <img
-                            src="/images/mastercard.svg"
-                            className="w-10 md:w-16"
+                          <Icon
+                            name="visa"
+                            className="w-72 h-10 pl-56 md:w-52 md:h-12 md:pl-32"
                           />
                         )}
                         {data?.card?.provider === "Visa" && (
-                          <img
-                            src="/images/visa.svg"
-                            className="w-10 md:w-16"
+                          <Icon
+                            name="visa"
+                            className="w-72 h-10 pl-56 md:w-52 md:h-12 md:pl-32"
                           />
                         )}
                       </div>
                     </div>
                     <Box as="p" className="max-w-sm">
-                      <img
-                        src="/images/sim.png"
-                        className="w-8 md:w-12 border-2 border-sky-500 rounded-md"
-                      />
+                      <Icon name="sim" className="w-8 h-8 md:w-12 rounded-md" />
                     </Box>
                     <Box
                       as="p"
@@ -350,12 +242,9 @@ const Hero = () => {
                       </div>
 
                       <div className="mt-4 w-full flex justify-between">
-                        <Image
-                          src="/images/logo.webp"
-                          w={{ base: "50px", lg: "80px" }}
-                          filter="brightness(0.8)"
-                          opacity={0.8}
-                          mixBlendMode="initial"
+                        <Icon
+                          name="logo"
+                          className="w-20 h-6 bg-blend-darken opacity-80"
                         />
                       </div>
                     </div>

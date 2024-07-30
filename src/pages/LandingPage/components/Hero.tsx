@@ -1,10 +1,10 @@
+import { Icon } from "@/components/assets/Icon";
 import styles from "../../../style";
-import { Image } from "@chakra-ui/react";
 
 const Hero = () => (
   <section
     id="home"
-    className={`flex md:flex-row flex-col gap-10 mt-6 ss:mt-0 ${styles.paddingY}`}
+    className={`flex md:flex-row flex-col gap-0 ss:mt-0 ${styles.paddingY}`}
   >
     <div
       className={`flex-1 ${styles.flexStart} flex-col xl:px-0 sm:px-16 px-6`}
@@ -29,11 +29,7 @@ const Hero = () => (
     </div>
 
     <div className={`flex-1 flex ${styles.flexCenter} relative`}>
-      <Image
-        src="/images/hero.webp"
-        alt="hero"
-        w={{ base: "320px", lg: "500px" }}
-      />
+      <Icon name="hero-image" className="w-72 sm:w-96" />
     </div>
   </section>
 );

@@ -15,10 +15,12 @@ export const CardContainer = ({
   children,
   className,
   containerClassName,
+  onClick
 }: {
   children?: React.ReactNode;
   className?: string;
   containerClassName?: string;
+  onClick?: VoidFunction;
 }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [isMouseEntered, setIsMouseEntered] = useState(false);
@@ -52,6 +54,7 @@ export const CardContainer = ({
         style={{
           perspective: "1000px",
         }}
+        onClick={onClick}
       >
         <div
           ref={containerRef}
