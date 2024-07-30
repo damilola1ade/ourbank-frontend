@@ -163,7 +163,7 @@ const Hero = () => {
           <div className="flip-card h-64 w-80 lg:w-[28rem]">
             <div className="flip-card-inner">
               <div className="flip-card-front">
-                <Box className={`${cardClassName}`}>
+                <Box className={`${cardClassName} h-52 lg:h-60`}>
                   <Box className="bg-opacity-1 bg-blend-darken group dark:hover:shadow-2xl hover:shadow-emerald-500/[0.1] p-6 transition-all duration-500">
                     <div className="w-full flex items-end justify-end">
                       <div className="w-full flex items-end justify-end">
@@ -175,7 +175,7 @@ const Hero = () => {
                         )}
                         {data?.card?.provider === "MasterCard" && (
                           <Icon
-                            name="visa"
+                            name="mastercard"
                             className="w-72 h-10 pl-56 md:w-52 md:h-12 md:pl-32"
                           />
                         )}
