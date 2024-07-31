@@ -34,7 +34,7 @@ export const Navbar = () => {
     // const intervalId = setInterval(sendPing, 600000);
 
     // Set an interval to send ping every 30 minutes
-    const intervalId = setInterval(sendPing, 1800000);
+    const intervalId = setInterval(sendPing, 600000);
 
     // Clean up the interval on component unmount
     return () => clearInterval(intervalId);
