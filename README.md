@@ -1,7 +1,2 @@
-# ourbank
-OurBank- A responsive website created with ReactJS and TailwindCSS. The best modern business landing page out there.
-![1](https://user-images.githubusercontent.com/76736466/198647637-4e484702-6b9a-4722-a0a5-3d8a3161db5e.PNG)
-![2](https://user-images.githubusercontent.com/76736466/198648707-17956f81-8dc7-46a2-bbce-12ba2dfa7333.PNG)
-
-"npm install" to install dependencies
-"npm run dev" to start
+<img width="944" alt="Screenshot 2024-07-31 111630" src="https://github.com/user-attachments/assets/c2a78ae7-9d21-4e60-b67a-e33f4fe67556">
+<img width="960" alt="Screenshot 2024-07-31 111553" src="https://github.com/user-attachments/assets/4260749f-c1de-4464-ad8b-430fac854c8e">
