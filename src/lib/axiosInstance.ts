@@ -8,6 +8,7 @@ export const axiosInstance = axios.create({
   },
 });
 
+// Request interceptor
 axiosInstance.interceptors.request.use(
   (config) => {
     const userString = sessionStorage.getItem("user");
@@ -28,31 +29,19 @@ axiosInstance.interceptors.request.use(
   }
 );
 
-// import axios, { AxiosError } from "axios";
+// Response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  (error) => {
+    if (error.response && error.response.status === 401) {
+      // Clear user data from session storage
+      sessionStorage.clear();
 
-// interface BaseQueryArgs {
-//   url: string;
-//   method: string;
-//   data?: any;
-//   params?: string;
-//   headers?: any;
-// }
-
-// export const axiosBaseQuery =
-//   ({ baseUrl }: { baseUrl: string }) =>
-//   async ({ url, method, data, params, headers }: BaseQueryArgs) => {
-//     try {
-//       const response = await axios({
-//         url: `${baseUrl}/${url}`,
-//         method,
-//         data,
-//         params,
-//       });
-//       return { data: response.data };
-//     } catch (axiosError) {
-//       const error = axiosError as AxiosError;
-//       return {
-//         error: error.response ? error.response.data : error.message,
-//       };
-//     }
-//   };
+      // Redirect to login
+      window.location.href = "/login"; // or use useNavigate in a React component
+    }
+    return Promise.reject(error);
+  }
+);

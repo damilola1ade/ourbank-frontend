@@ -4,5 +4,5 @@ import { useAppSelector } from "@/hooks/RTKHooks";
 
 export const ProtectedRoute = ({ children }: { children: ReactNode }) => {
   const { user } = useAppSelector((store) => store.auth);
-  return user ? <>{children}</> : <Navigate to="/" replace />;
+  return user ? <>{children}</> : <Navigate to="/login" replace />;
 };
