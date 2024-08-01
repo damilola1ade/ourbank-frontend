@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
       sessionStorage.clear();
 
       // Redirect to login
-      window.location.href = "/login"; // or use useNavigate in a React component
+      window.location.href = "/"; // or use useNavigate in a React component
     }
     return Promise.reject(error);
   }
