@@ -1,3 +1,4 @@
+import { logout } from "@/slice/authSlice";
 import axios from "axios";
 
 export const axiosInstance = axios.create({
@@ -38,6 +39,7 @@ axiosInstance.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       // Clear user data from session storage
       sessionStorage.clear();
+      logout();
 
       // Redirect to login
       window.location.href = "/"; // or use useNavigate in a React component
