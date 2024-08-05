@@ -58,7 +58,7 @@ export function SignUpForm() {
   const onSubmit = async (data: FormValues) => {
     try {
       const response = await signUp({
-        name: data.email,
+        name: data.name,
         email: data.email,
         password: data.password,
       }).unwrap();
