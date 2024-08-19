@@ -7,6 +7,7 @@ import { Sim } from "./svg/sim";
 import { Verve } from "./svg/verve";
 import { MasterCard } from "./svg/mastercard";
 import { Visa } from "./svg/visa";
+import { Business } from "./svg/business";
 
 const iconMap = {
   logo: Logo,
@@ -14,7 +15,8 @@ const iconMap = {
   sim: Sim,
   verve: Verve,
   mastercard: MasterCard,
-  visa: Visa
+  visa: Visa,
+  business: Business
 };
 
 export type IconType = keyof typeof iconMap;

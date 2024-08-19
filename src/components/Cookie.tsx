@@ -23,8 +23,7 @@ export const Cookie = () => {
         textAlign="center"
         fontSize={{ base: "sm", md: "md", "2xl": "xl" }}
       >
-        Hey guys! The virtual card prototype has been implemented! Please sign
-        up and test. Would appreciate feedback 🙏. Cheers!
+        Please sign up and test. Would appreciate feedback 🙏. Cheers!
         <CloseButton
           onClick={onClose}
           position="absolute"

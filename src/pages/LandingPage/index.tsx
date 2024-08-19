@@ -1,11 +1,12 @@
 import styles from "../../style";
-import { Hero } from "./components";
+import { Business, Hero } from "./components";
 
 const LandingPage = () => (
   <div className="w-full overflow-hidden">
     <div className={`${styles.flexStart}`}>
       <div className={`${styles.boxWidth}`}>
         <Hero />
+        <Business />
       </div>
     </div>
   </div>
